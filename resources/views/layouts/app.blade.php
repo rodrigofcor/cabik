@@ -12,27 +12,16 @@
 </head>
 <body>
     <div class="app">
-        <div id="menu">
-            <a href="{{ route("home") }}"><img id="logo" src="{{ asset('images/logo.svg') }}" alt="Home" style="image-rendering: pixelated"></a>
-
+        <nav class="main_menu">
+            <a href="{{ route("home") }}" class="a_logo"><img class="logo" src="{{ asset('images/logo.svg') }}" alt="Home">Cabik</a> 
            
-            <button type="button" class="btn btn-default">Default</button>
-
-            <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
-            <button type="button" class="btn btn-primary">Primary</button>
-        
-            <!-- Indicates a successful or positive action -->
-            <button type="button" class="btn btn-success">Success</button>
-        
-            <!-- Contextual button for informational alert messages -->
-            <button type="button" class="btn btn-info">Info</button>
-        
-            <!-- Indicates caution should be taken with this action -->
-            <button type="button" class="btn btn-warning">Warning</button>
-        
-            <!-- Indicates a dangerous or potentially negative action -->
-            <button type="button" class="btn btn-danger">Danger</button>
-        </div>
+            <div class="float-end">
+                <a href="#" class="btn"><i class="fa fa-search"></i></a>
+                <a href="#" class="btn"><i class="fas fa-plus"></i></a>
+                <a href="#" class="btn"><i class="far fa-bell"></i></a>
+                <a href="#" class="btn"><i class="fas fa-user-alt"></i></a>
+            </div>
+        </nav>
         @yield('content')
     </div>
 </body>
