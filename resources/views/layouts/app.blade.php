@@ -14,17 +14,18 @@
     <div class="app">
         <nav class="navbar navbar-dark main-nav">
             <div class="container-fluid">
-              <a class="navbar-brand" href="{{ route("home") }}">
-                <img src="{{ asset('images/logo.png') }}" alt="" height="50" class="d-inline-block">
-                Cabik
-              </a>
+                <a class="navbar-brand" href="{{ route("home") }}">
+                    <img src="{{ asset('images/logo.png') }}" alt="" height="50" class="d-inline-block">
+                    Cabik
+                </a>
 
-              <form class="form-inline">
-                <a class="btn btn-outline-light" type="button" href="#"><i class="fa fa-search"></i></a>
-                <a class="btn btn-outline-light" type="button" href="#"><i class="fas fa-plus"></i></a>
-                <a class="btn btn-outline-light" type="button" href="#"><i class="far fa-bell"></i></a>
-                <a class="btn btn-outline-light" type="button" href="#"><i class="fas fa-user-alt"></i></a>
-              </form>
+                <form class="form-inline">
+                    <a class="btn btn-outline-light" type="button" href="#"><i class="fa fa-search"></i></a>
+                    <a class="btn btn-outline-light" type="button" href="#"><i class="fas fa-plus"></i></a>
+                    <a class="btn btn-outline-light" type="button" href="#"><i class="far fa-bell"></i></a>
+                    <a class="btn btn-outline-light" type="button" href="#"><i class="fas fa-user-alt"></i></a>
+                </form>
+            </div>
         </nav>
 
         @yield('content')
