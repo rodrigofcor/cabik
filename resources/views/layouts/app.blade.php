@@ -12,16 +12,21 @@
 </head>
 <body>
     <div class="app">
-        <nav class="main_menu">
-            <a href="{{ route("home") }}" class="a_logo"><img class="logo" src="{{ asset('images/logo.svg') }}" alt="Home">Cabik</a> 
-           
-            <div class="float-end">
-                <a href="#" class="btn"><i class="fa fa-search"></i></a>
-                <a href="#" class="btn"><i class="fas fa-plus"></i></a>
-                <a href="#" class="btn"><i class="far fa-bell"></i></a>
-                <a href="#" class="btn"><i class="fas fa-user-alt"></i></a>
-            </div>
+        <nav class="navbar navbar-dark main-nav">
+            <div class="container-fluid">
+              <a class="navbar-brand" href="{{ route("home") }}">
+                <img src="{{ asset('images/logo.png') }}" alt="" height="50" class="d-inline-block">
+                Cabik
+              </a>
+
+              <form class="form-inline">
+                <a class="btn btn-outline-light" type="button" href="#"><i class="fa fa-search"></i></a>
+                <a class="btn btn-outline-light" type="button" href="#"><i class="fas fa-plus"></i></a>
+                <a class="btn btn-outline-light" type="button" href="#"><i class="far fa-bell"></i></a>
+                <a class="btn btn-outline-light" type="button" href="#"><i class="fas fa-user-alt"></i></a>
+              </form>
         </nav>
+
         @yield('content')
     </div>
 </body>
