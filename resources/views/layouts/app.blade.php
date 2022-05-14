@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>@yield('title')</title>
-    <link rel="icon" href="{{ asset('images/logo.png') }}">
+    <link rel="icon" href="{{ asset('images/small-logo.png') }}">
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
     <!-- Styles -->
@@ -20,10 +20,14 @@
                 </a>
 
                 <form class="form-inline">
-                    <a class="btn btn-outline-light" type="button" href="#"><i class="fa fa-search"></i></a>
-                    <a class="btn btn-outline-light" type="button" href="#"><i class="fas fa-plus"></i></a>
-                    <a class="btn btn-outline-light" type="button" href="#"><i class="far fa-bell"></i></a>
-                    <a class="btn btn-outline-light" type="button" href="#"><i class="fas fa-user-alt"></i></a>
+                    @if (Auth::check())
+                        <a class="btn btn-outline-light" type="button" href="#"><i class="fa fa-search"></i></a>
+                        <a class="btn btn-outline-light" type="button" href="#"><i class="fas fa-plus"></i></a>
+                        <a class="btn btn-outline-light" type="button" href="#"><i class="fas fa-bell"></i></a>
+                        <a class="btn btn-outline-light" type="button" href="#"><i class="fas fa-user-alt"></i></a>
+                    @else
+                        <a class="btn btn-outline-light" type="button" href="#">Login</a>
+                    @endif
                 </form>
             </div>
         </nav>
