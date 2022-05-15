@@ -7,3 +7,7 @@ body {
   background-image: linear-gradient(to right, #285A84 , #6B5C5C, #CE5F21);
 }
 
+.ast {
+  color: #CE5F21 !important;
+}
+
