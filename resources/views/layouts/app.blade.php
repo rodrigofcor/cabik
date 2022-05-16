@@ -4,8 +4,10 @@
     <meta charset="utf-8">
     <title>@yield('title')</title>
     <link rel="icon" href="{{ asset('images/small-logo.png') }}">
+
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet"> <!-- Bootstrap -->
     <link href="{{ asset('css/cabik.css') }}" rel="stylesheet">
