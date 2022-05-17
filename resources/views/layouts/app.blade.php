@@ -6,6 +6,8 @@
     <link rel="icon" href="{{ asset('images/small-logo.png') }}">
 
     <!-- Scripts -->
+    @stack('scripts')
+    
     <script src="{{ asset('js/app.js') }}" defer></script>
     
     <!-- Styles -->

@@ -53,7 +53,7 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label for="ddd_id">DDD <span class="ast">*</span></label>
-                <select class="form-control" id="ddd_id">
+                <select class="form-control" id="ddd_id" name="ddd_id">
                   <option disabled>DDD para localização</option>
                   @foreach($ddds as $ddd)
                     <option value="{{ $ddd->id }}">{{ $ddd->name }}</option>
@@ -106,29 +106,47 @@
   </form>
 </div>
 
+@endsection
+
+@push('scripts')
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
+$(document).ready(function () { 
 
-  $("#ddd_id").change(function() {
-    alert('oi')
-    $("#city_id").html("")
+  fetchCittyId()
 
-    $.ajax({
-      url: {{ url('/api/ddd') }} + '/' + $("#ddd_id").val() + '/city', //link da api
-      jsonpCallback: "callback",
-      dataType: "jsonp",
+  $("#ddd_id").change(function () {
+    fetchCittyId()
+  })
+  
+  function fetchCittyId () {
+    $("#city_id").html("<option disabled>DDD para localização</option>")
+    
+    if($("#ddd_id").val()) {
+      $.ajax({
+        type: "GET",
+        url: "{{ url('/api/ddd') }}" + "/" + $("#ddd_id").val() + "/city",
+        timeout: 5000,
+        data: {
+          // "var": var,
+        },
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        success: function (data) {
+          $.each(data, function() {
+            $("#city_id").append($("<option />").val(this.id).text(this.name));
+          });
+        },
+        error: function (data) {
+          console.log("Erro: " + data);
+        }
+      })
+    }
+  }
 
-      success: function(location) {
-        $("#city_id").html("dsdsdsdd")
-          
-      },
-      
-      // se a requisição tiver algum problema
-      error: function(){
-          $('#texto').html("Algo deu errado!");
-      }
-    });
-  });
+})
 </script>
 
-@endsection
+@endpush
