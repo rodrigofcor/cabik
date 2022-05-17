@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('id')->primary();
             $table->string('name');
             $table->string('email')->unique();
-            $table->string('phone', 9)->nullable();
+            $table->string('phone', 10)->nullable();
 
             $table->unsignedBigInteger('city_id');
             $table->unsignedBigInteger('pix_type_id')->nullable();

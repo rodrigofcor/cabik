@@ -9,7 +9,9 @@
     <h1>Criar Conta</h1>
   </div>
 
-  <form>
+  <form action="{{ route("user.store") }}" method="POST">
+    @csrf
+
     <div class="row">
       <div class="col-md-3">
         <div class="form-group">

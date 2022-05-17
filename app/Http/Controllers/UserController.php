@@ -17,4 +17,9 @@ class UserController extends Controller
 
         return view('user.create', compact('ddds', 'pixTypes'));
     }
+
+    public function store()
+    {
+        
+    }
 }
