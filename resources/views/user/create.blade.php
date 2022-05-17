@@ -14,7 +14,7 @@
       <div class="col-md-3">
         <div class="form-group">
           <label for="name">Nome <span class="ast">*</span></label>
-          <input type="text" class="form-control" id="name" placeholder="João Bonito">
+          <input type="text" class="form-control title-case" id="name" placeholder="João Bonito">
         </div>
       </div>
 
@@ -25,7 +25,7 @@
             <div class="input-group-prepend">
               <div class="input-group-text">@</div>
             </div>
-            <input type="text" class="form-control" id="id" placeholder="joao_bonito">
+            <input type="text" class="form-control lower-case" id="id" placeholder="joao_bonito">
           </div>
         </div>
       </div>
@@ -33,14 +33,14 @@
       <div class="col-md-3">
         <div class="form-group">
           <label for="email">Email <span class="ast">*</span></label>
-          <input type="email" class="form-control" id="email" placeholder="joaobonito@email.com">
+          <input type="email" class="form-control lower-case" id="email" placeholder="joaobonito@email.com">
         </div>
       </div>
 
       <div class="col-md-3">
         <div class="form-group">
           <label for="phone">Celular</label>
-          <input type="text" class="form-control" id="phone" placeholder="99999-9999">
+          <input type="text" class="form-control phone" id="phone" placeholder="99999-9999">
         </div>
       </div>
     </div>
@@ -54,7 +54,7 @@
               <div class="form-group">
                 <label for="ddd_id">DDD <span class="ast">*</span></label>
                 <select class="form-control" id="ddd_id" name="ddd_id">
-                  <option disabled>DDD para localização</option>
+                  <option disabled>Qual seu DDD?</option>
                   @foreach($ddds as $ddd)
                     <option value="{{ $ddd->id }}">{{ $ddd->name }}</option>
                   @endforeach
@@ -66,7 +66,7 @@
               <div class="form-group">
                 <label for="city_id">Cidade <span class="ast">*</span></label>
                 <select class="form-control" id="city_id">
-                  <option disabled>Cidade para localização</option>
+                  <option disabled>Qual sua cidade?</option>
                 </select>
               </div>
             </div>
@@ -83,6 +83,9 @@
                 <label for="pix_type_id">Tipo</label>
                 <select class="form-control" id="pix_type_id">
                   <option disabled>Qual tipo?</option>
+                  @foreach($pixTypes as $pixType)
+                    <option value="{{ $pixType->id }}">{{ $pixType->name }}</option>
+                  @endforeach
                 </select>
               </div>
             </div>  
@@ -111,6 +114,8 @@
 @push('scripts')
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+<script type="text/javascript" src="{{ asset('js/helpers.js') }}"></script>
 <script>
 $(document).ready(function () { 
 
@@ -121,7 +126,7 @@ $(document).ready(function () {
   })
   
   function fetchCittyId () {
-    $("#city_id").html("<option disabled>DDD para localização</option>")
+    $("#city_id").html("<option disabled>Qual sua cidade?</option>")
     
     if($("#ddd_id").val()) {
       $.ajax({
@@ -137,7 +142,7 @@ $(document).ready(function () {
         success: function (data) {
           $.each(data, function() {
             $("#city_id").append($("<option />").val(this.id).text(this.name));
-          });
+          })
         },
         error: function (data) {
           console.log("Erro: " + data);
@@ -145,6 +150,18 @@ $(document).ready(function () {
       })
     }
   }
+
+  $(".title-case").on('change keydown paste input', function ()
+  {
+    $(this).val(toTitleCase($(this).val()))
+  })
+
+  $(".lower-case").on('change keydown paste input', function ()
+  {
+    $(this).val($(this).val().toLowerCase())
+  })
+
+  $('.phone').mask('00000-0000');
 
 })
 </script>

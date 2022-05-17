@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             DddSeeder::class,
             CitySeeder::class,
+            PixTypeSeeder::class,
         ]);
     }
 }
