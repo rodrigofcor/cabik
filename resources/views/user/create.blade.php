@@ -9,6 +9,16 @@
     <h1>Criar Conta</h1>
   </div>
 
+  @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+          @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+          @endforeach
+        </ul>
+    </div>
+  @endif
+
   <form action="{{ route("user.store") }}" method="POST">
     @csrf
 
@@ -16,7 +26,7 @@
       <div class="col-md-3">
         <div class="form-group">
           <label for="name">Nome <span class="ast">*</span></label>
-          <input type="text" class="form-control title-case" id="name" placeholder="João Bonito">
+          <input type="text" class="form-control title-case" id="name" name="name" placeholder="João Bonito" value="{{ old('name') }}">
         </div>
       </div>
 
@@ -27,7 +37,7 @@
             <div class="input-group-prepend">
               <div class="input-group-text">@</div>
             </div>
-            <input type="text" class="form-control lower-case" id="id" placeholder="joao_bonito">
+            <input type="text" class="form-control lower-case" id="id" name="id" placeholder="joao_bonito" value="{{ old('id') }}">
           </div>
         </div>
       </div>
@@ -35,14 +45,14 @@
       <div class="col-md-3">
         <div class="form-group">
           <label for="email">Email <span class="ast">*</span></label>
-          <input type="email" class="form-control lower-case" id="email" placeholder="joaobonito@email.com">
+          <input type="text" class="form-control lower-case" id="email" name="email" placeholder="joaobonito@email.com" value="{{ old('email') }}">
         </div>
       </div>
 
       <div class="col-md-3">
         <div class="form-group">
           <label for="phone">Celular</label>
-          <input type="text" class="form-control phone" id="phone" placeholder="99999-9999">
+          <input type="text" class="form-control phone" id="phone" name="phone" placeholder="99999-9999" value="{{ old('phone') }}">
         </div>
       </div>
     </div>
@@ -55,20 +65,15 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label for="ddd_id">DDD <span class="ast">*</span></label>
-                <select class="form-control" id="ddd_id" name="ddd_id">
-                  <option disabled>Qual seu DDD?</option>
-                  @foreach($ddds as $ddd)
-                    <option value="{{ $ddd->id }}">{{ $ddd->name }}</option>
-                  @endforeach
-                </select>
+                {!! Form::select('ddd_id', $ddds, old('ddd_id'), ['id' => 'ddd_id','class' => 'form-control','placeholder' => 'Qual seu DDD?']) !!}
               </div>
             </div>  
     
             <div class="col-md-6">
               <div class="form-group">
                 <label for="city_id">Cidade <span class="ast">*</span></label>
-                <select class="form-control" id="city_id">
-                  <option disabled>Qual sua cidade?</option>
+                <select class="form-control" id="city_id" name="city_id">
+                  <option value="">Qual sua cidade?</option>
                 </select>
               </div>
             </div>
@@ -83,23 +88,34 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label for="pix_type_id">Tipo</label>
-                <select class="form-control" id="pix_type_id">
-                  <option disabled>Qual tipo?</option>
-                  @foreach($pixTypes as $pixType)
-                    <option value="{{ $pixType->id }}">{{ $pixType->name }}</option>
-                  @endforeach
-                </select>
+                {!! Form::select('pix_type_id', $pixTypes, old('pix_type_id'), ['id' => 'pix_type_id','class' => 'form-control','placeholder' => 'Qual tipo?']) !!}
               </div>
             </div>  
     
             <div class="col-md-6">
               <div class="form-group">
                 <label for="pix">Chave</label>
-                <input type="text" class="form-control" id="pix" placeholder="xxxxx...">
+                <input type="text" class="form-control" id="pix" name="pix" placeholder="xxxxx..."  value="{{ old('pix') }}">
               </div>
             </div>
           </div>
         </fieldset>
+      </div>
+    </div>
+
+    <div class="row mt-3">
+      <div class="col-md-3">
+        <div class="form-group">
+          <label for="password">Senha <span class="ast">*</span></label>
+          <input type="password" class="form-control" id="password" name="password">
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="form-group">
+          <label for="password_confirmation ">Confirmar Senha <span class="ast">*</span></label>
+          <input type="password" class="form-control" id="password_confirmation " name="password_confirmation ">
+        </div>
       </div>
     </div>
 
@@ -121,14 +137,15 @@
 <script>
 $(document).ready(function () { 
 
-  fetchCittyId()
+  let oldCityId = {{ old('city_id') }}
+  fetchCityId()
 
   $("#ddd_id").change(function () {
-    fetchCittyId()
+    fetchCityId()
   })
   
-  function fetchCittyId () {
-    $("#city_id").html("<option disabled>Qual sua cidade?</option>")
+  function fetchCityId () {
+    $("#city_id").html('<option value="">Qual sua cidade?</option>')
     
     if($("#ddd_id").val()) {
       $.ajax({
@@ -143,11 +160,15 @@ $(document).ready(function () {
         },
         success: function (data) {
           $.each(data, function() {
-            $("#city_id").append($("<option />").val(this.id).text(this.name));
+            $("#city_id").append($("<option />").val(this.id).text(this.name))
+
+            if(this.id == oldCityId) {
+              $("#city_id option[value=" + oldCityId + "]").prop("selected", true)
+            }
           })
         },
         error: function (data) {
-          console.log("Erro: " + data);
+          console.log("Erro: " + data)
         }
       })
     }
@@ -163,7 +184,7 @@ $(document).ready(function () {
     $(this).val($(this).val().toLowerCase())
   })
 
-  $('.phone').mask('00000-0000');
+  $('.phone').mask('00000-0000')
 
 })
 </script>
