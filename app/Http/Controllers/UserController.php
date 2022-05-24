@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 use App\Models\User;
 use App\Models\Ddd;
@@ -21,6 +22,7 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'profile_photo' => 'required|image|max:2048',
             'name' => 'required|min:3|max:255',
             'id' => 'required|min:3|max:255|unique:users',
             'email' => 'required|min:3|max:255|email|unique:users',
@@ -28,13 +30,21 @@ class UserController extends Controller
             'city_id' => 'required',
             'pix_type_id' => 'required_unless:pix,null',
             'pix' => 'required_unless:pix_type_id,null',
-            'password' => 'required|min:6|max:255|confirmed',
-        ],
-        [
-            'name.required' => 'You have to choose the file!',
-            'type.required' => 'You have to choose type of the file!'
+            'password' => 'required|min:8|max:255|confirmed',
         ]);
 
         $user = new User();
+        
+        $user->name = $request->name;
+        $user->id = $request->id;
+        $user->email = $request->email;
+        $user->phone = $request->phone;
+        $user->city_id = $request->city_id;
+        $user->pix_type_id = $request->pix_type_id;
+        $user->pix = $request->pix;
+        $user->password = Hash::make($request->password);
+        $user->profile_photo = $request->profile_photo->store('users');
+
+        $user->save();
     }
 }

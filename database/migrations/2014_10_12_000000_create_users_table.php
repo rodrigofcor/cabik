@@ -18,11 +18,10 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('phone', 10)->nullable();
-
             $table->unsignedBigInteger('city_id');
             $table->unsignedBigInteger('pix_type_id')->nullable();
-            
             $table->string('pix')->nullable();
+            $table->string('profile_photo');
 
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

@@ -10,3 +10,24 @@ body {
 .ast {
   color: #CE5F21 !important;
 }
+
+.profile-photo-upload figure img {
+  width: 250px;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 50%;
+  border:2px solid gainsboro; 
+  opacity: 1;
+  transition: .3s ease-in-out;
+  -webkit-transition: .3s ease-in-out;
+}
+
+.profile-photo-upload figure:hover img {
+  cursor: pointer;
+  opacity: .5;
+}
+
+.profile-photo-upload input {
+  display: none;
+}
+

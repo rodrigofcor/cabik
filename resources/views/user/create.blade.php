@@ -19,10 +19,21 @@
     </div>
   @endif
 
-  <form action="{{ route("user.store") }}" method="POST">
+  
+  <form action="{{ route("user.store") }}" method="POST" enctype="multipart/form-data">
     @csrf
-
+    
     <div class="row">
+      <div class="profile-photo-upload">
+        <label for="profile_photo" style="width: 100%">
+          <figure><img id="profile-photo-preview" style="display: block; margin-left: auto;margin-right: auto;" src="{{ asset('images/profile-photo-ico.png') }}"/></figure>
+        </label>
+
+        <input type="file" id="profile_photo" name="profile_photo" accept="image/*">
+      </div>
+    </div>
+
+    <div class="row mt-3">
       <div class="col-md-3">
         <div class="form-group">
           <label for="name">Nome <span class="ast">*</span></label>
@@ -44,7 +55,7 @@
 
       <div class="col-md-3">
         <div class="form-group">
-          <label for="email">Email <span class="ast">*</span></label>
+          <label for="email">E-mail <span class="ast">*</span></label>
           <input type="text" class="form-control lower-case" id="email" name="email" placeholder="joaobonito@email.com" value="{{ old('email') }}">
         </div>
       </div>
@@ -113,8 +124,8 @@
 
       <div class="col-md-3">
         <div class="form-group">
-          <label for="password_confirmation ">Confirmar Senha <span class="ast">*</span></label>
-          <input type="password" class="form-control" id="password_confirmation " name="password_confirmation ">
+          <label for="password_confirmation">Confirmar Senha <span class="ast">*</span></label>
+          <input type="password" class="form-control" id="password_confirmation" name="password_confirmation">
         </div>
       </div>
     </div>
@@ -140,6 +151,17 @@ $(document).ready(function () {
   let oldCityId = {{ old('city_id') }}
   fetchCityId()
 
+  $('#profile_photo').change(function () {
+    const file = this.files[0]
+    if (file){
+      let reader = new FileReader()
+      reader.onload = function(event) {
+        $('#profile-photo-preview').attr('src', event.target.result)
+      }
+      reader.readAsDataURL(file)
+    }
+  })
+  
   $("#ddd_id").change(function () {
     fetchCityId()
   })
