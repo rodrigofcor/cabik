@@ -9,16 +9,7 @@
     <h1>Criar Conta</h1>
   </div>
 
-  @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-          @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
-          @endforeach
-        </ul>
-    </div>
-  @endif
-
+  @include('includes.alertError')  
   
   <form action="{{ route("user.store") }}" method="POST" enctype="multipart/form-data">
     @csrf

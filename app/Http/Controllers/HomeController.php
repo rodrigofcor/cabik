@@ -3,26 +3,48 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
+
+use App\Models\User;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    public function home()
     {
-        //$this->middleware('auth');
+        return view('home');
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
-    public function index()
+    public function login()
     {
-        return view('welcome');
+        return view('login');
+    }
+
+    public function authenticate(Request $request)
+    {
+        $request->validate([
+            'email' => 'required',
+            'password' => 'required',
+        ]);
+
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) 
+        {
+            $request->session()->regenerate();
+
+           return redirect()->intended('/');
+        } else {
+            return back()->withErrors([
+                'email' => 'Credenciais inválidas.',
+            ])->onlyInput('email');
+        }
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        $request->session()->invalidate(); 
+        $request->session()->regenerateToken();
+    
+        return redirect('/');
     }
 }

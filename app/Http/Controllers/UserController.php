@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 use App\Models\User;
 use App\Models\Ddd;
@@ -22,11 +23,11 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'profile_photo' => 'required|image|max:2048',
+            'profile_photo' => 'required|image|max:4096',
             'name' => 'required|min:3|max:255',
             'id' => 'required|min:3|max:255|unique:users',
             'email' => 'required|min:3|max:255|email|unique:users',
-            'phone' => 'min:9|max:10',
+            'phone' => 'nullable|min:9|max:10',
             'city_id' => 'required',
             'pix_type_id' => 'required_unless:pix,null',
             'pix' => 'required_unless:pix_type_id,null',
@@ -46,5 +47,13 @@ class UserController extends Controller
         $user->profile_photo = $request->profile_photo->store('users');
 
         $user->save();
+
+        Auth::login($user);
+        
+        return redirect('/');
+    }
+
+    public function show(User $user){
+        return view('user.show', compact('user'));
     }
 }

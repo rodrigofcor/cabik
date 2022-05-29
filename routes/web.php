@@ -15,9 +15,19 @@ use App\Http\Controllers\UserController;
 |
 */
 
-Auth::routes();
+Route::get('/', [HomeController::class, 'home'])->name('home');
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::middleware('guest')->group(function () {
+    Route::get('/login', [HomeController::class, 'login'])->name('login');
+    Route::post('/authenticate', [HomeController::class, 'authenticate'])->name('authenticate');
 
-// user
-Route::resource('user', UserController::class);
+    Route::get('/user/create', [UserController::class, 'create'])->name('user.create');
+    Route::post('/user/store', [UserController::class, 'store'])->name('user.store');
+});
+
+Route::middleware('auth')->group(function () {
+    Route::post('/logout', [HomeController::class, 'logout'])->name('logout');
+
+    Route::resource('user', UserController::class)->except(['create', 'store']);
+});
+

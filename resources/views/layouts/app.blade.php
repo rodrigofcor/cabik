@@ -28,13 +28,17 @@
                         <a class="btn btn-outline-light" type="button" href="#"><i class="fa fa-search"></i></a>
                         <a class="btn btn-outline-light" type="button" href="#"><i class="fas fa-plus"></i></a>
                         <a class="btn btn-outline-light" type="button" href="#"><i class="fas fa-bell"></i></a>
-                        <a class="btn btn-outline-light" type="button" href="#"><i class="fas fa-user-alt"></i></a>
+                        <button class="btn btn-outline-light" type="button" data-bs-toggle="modal" data-bs-target="#modalUserOptions"><i class="fas fa-user-alt"></i></button>
                     @else
-                        <a class="btn btn-outline-light" type="button" href="#">Login</a>
+                        <a href="{{ route('login') }}" class="btn btn-outline-light" type="button">Login</a>
                     @endif
                 </form>
             </div>
         </nav>
+
+        @if (Auth::check())
+            @include('includes.modalUserOptions')
+        @endif
 
         @yield('content')
     </div>
