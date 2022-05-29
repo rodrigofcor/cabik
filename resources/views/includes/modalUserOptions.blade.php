@@ -8,18 +8,19 @@
         <div class="modal-body">
             <div class="row">
                 <img class="profile-photo-modal mx-auto" src="{{ url('storage/' . Auth::user()->profile_photo) }}"/>
-                <h3 class="text-center mt-3">{{ Auth::user()->name }}</h3>
+                <h5 class="text-center mt-3">{{ Auth::user()->name }}</h5>
+                <h6 class="text-center">{{'@' . Auth::user()->id }}</h6>
             </div>
             <div class="row mt-4">
                 <form>
-                    <button type="button" class="btn btn-primary btn-lg w-100">Mostrar Perfil</button>
+                    <button type="button" class="btn btn-primary w-100">Mostrar Perfil</button>
                 </form>
             </div>
             <div class="row mt-4">
                 <form action="{{ route("logout") }}" method="POST">
                     @csrf
                     
-                    <button type="submit" class="btn btn-danger btn-lg w-100">Logout</button>
+                    <button type="submit" class="btn btn-danger w-100">Logout</button>
                 </form>
             </div>
         </div>

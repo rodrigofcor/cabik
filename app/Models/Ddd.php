@@ -9,6 +9,8 @@ class Ddd extends Model
 {
     use HasFactory;
 
+    public $incrementing = false;
+    
     public function cities()
     {
         return $this->hasMany('App\City');
