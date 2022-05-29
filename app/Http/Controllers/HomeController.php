@@ -23,25 +23,36 @@ class HomeController extends Controller
     public function authenticate(Request $request)
     {
         $request->validate([
-            'email' => 'required',
+            'login' => 'required',
             'password' => 'required',
         ]);
 
-        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) 
+        $credentialsForEmail = [
+            'email' => $request->login, 
+            'password' => $request->password
+        ];
+
+        $credentialsForId = [
+            'id' => $request->login, 
+            'password' => $request->password
+        ];
+
+        if (Auth::attempt($credentialsForEmail) || Auth::attempt($credentialsForId)) 
         {
             $request->session()->regenerate();
 
            return redirect()->intended('/');
         } else {
             return back()->withErrors([
-                'email' => 'Credenciais inválidas.',
-            ])->onlyInput('email');
+                'login' => 'Credenciais inválidas.',
+            ])->onlyInput('login');
         }
     }
 
     public function logout(Request $request)
     {
         Auth::logout();
+
         $request->session()->invalidate(); 
         $request->session()->regenerateToken();
     

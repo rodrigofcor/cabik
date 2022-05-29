@@ -14,15 +14,13 @@
     <form action="{{ route("authenticate") }}" method="POST" enctype="multipart/form-data">
         @csrf
 
-        <div class="row">  
+        <div class="row mt-2">  
             <div class="form-group">
-                <label for="email">E-mail</label>
-                <input type="text" class="form-control" id="email" name="email" placeholder="E-mail" value="{{ old('email') }}">
+                <input type="text" class="form-control" id="login" name="login" placeholder="E-mail ou login" value="{{ old('login') }}">
             </div>
         </div>
         <div class="row mt-4">
             <div class="form-group">
-                <label for="password">Senha</label>
                 <input type="password" class="form-control" id="password" name="password" placeholder="Senha" value="{{ old('password') }}">
             </div>
         </div>
