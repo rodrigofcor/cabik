@@ -11,11 +11,11 @@ class City extends Model
 
     public function ddd()
     {
-        return $this->belongsTo('App\Ddd');
+        return $this->belongsTo('App\Models\Ddd');
     }
 
     public function users()
     {
-        return $this->hasMany('App\User');
+        return $this->hasMany('App\Models\User');
     }
 }

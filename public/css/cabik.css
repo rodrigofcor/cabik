@@ -12,8 +12,8 @@ body {
 }
 
 .profile-photo-upload figure img {
-  width: 250px;
-  height: 250px;
+  width: 200px;
+  height: 200px;
   object-fit: cover;
   border-radius: 50%;
   border:2px solid gainsboro; 
@@ -34,6 +34,14 @@ body {
 .profile-photo-modal {
   width: 150px;
   height: 150px;
+  object-fit: cover;
+  border-radius: 50%;
+  border:2px solid gainsboro; 
+}
+
+.profile-photo-show {
+  width: 200px;
+  height: 200px;
   object-fit: cover;
   border-radius: 50%;
   border:2px solid gainsboro; 

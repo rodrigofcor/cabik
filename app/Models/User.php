@@ -13,6 +13,14 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
 
     public $incrementing = false;
+
+    protected $appends = [
+        'login',
+        'full_phone',
+        'full_pix',
+        'localization',
+        'avatar',
+    ];
     
     /**
      * The attributes that are mass assignable.
@@ -44,13 +52,50 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function getLoginAttribute()
+    {
+        return '@' . $this->id;
+    }
+
+    public function getFullPhoneAttribute()
+    {
+        if($this->phone) {
+            return '(' . $this->city->ddd->id . ') ' . $this->phone;
+        } else {
+            return null;
+        }
+    }
+
+    public function getFullPixAttribute()
+    {
+        if($this->pix) {
+            return '(' . $this->pixType->name . ') ' . $this->pix;
+        } else {
+            return null;
+        }
+    }
+
+    public function getLocalizationAttribute()
+    {
+        if($this->city) {
+            return $this->city->name . '/' . substr($this->city->ddd->name, -2);
+        } else {
+            return null;
+        }
+    }
+
+    public function getAvatarAttribute()
+    {
+        return url('storage/' . $this->profile_photo);
+    }
+
     public function city()
     {
-        return $this->belongsTo('App\City');
+        return $this->belongsTo('App\Models\City');
     }
 
     public function pixType()
     {
-        return $this->belongsTo('App\PixType');
+        return $this->belongsTo('App\Models\PixType');
     }
 }

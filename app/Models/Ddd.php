@@ -13,6 +13,6 @@ class Ddd extends Model
     
     public function cities()
     {
-        return $this->hasMany('App\City');
+        return $this->hasMany('App\Models\City');
     }
 }

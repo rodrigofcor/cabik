@@ -19,7 +19,7 @@
         <button type="button" class="btn btn-primary btn-lg mt-4">Pesquisar</button>
       </div>
       <div class="row">
-        <a href="{{ route('login') }}"type="button" class="btn btn-secondary btn-lg mt-4">Login</a>
+        <a href="{{ route('login') }}" type="button" class="btn btn-secondary btn-lg mt-4">Login</a>
       </div>
       <div class="row">
         <a href="{{ route('user.create') }}" type="button" class="btn btn-success btn-lg mt-4">Criar Conta</a>

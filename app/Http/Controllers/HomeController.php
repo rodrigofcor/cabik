@@ -12,7 +12,11 @@ class HomeController extends Controller
 {
     public function home()
     {
-        return view('home');
+        if (Auth::check()) {
+            return redirect()->route('user.show', Auth::user());
+        } else {
+            return view('welcome');
+        }
     }
 
     public function login()
@@ -41,7 +45,7 @@ class HomeController extends Controller
         {
             $request->session()->regenerate();
 
-           return redirect()->intended('/');
+            return redirect()->intended('/');
         } else {
             return back()->withErrors([
                 'login' => 'Credenciais inválidas.',
@@ -56,6 +60,6 @@ class HomeController extends Controller
         $request->session()->invalidate(); 
         $request->session()->regenerateToken();
     
-        return redirect('/');
+        return redirect()->route('home');
     }
 }

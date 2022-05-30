@@ -13,7 +13,7 @@
             </div>
             <div class="row mt-4">
                 <form>
-                    <button type="button" class="btn btn-primary w-100">Mostrar Perfil</button>
+                    <a href="{{ route('user.show', Auth::user()) }}" type="button" class="btn btn-primary w-100">Mostrar Perfil</a>
                 </form>
             </div>
             <div class="row mt-4">

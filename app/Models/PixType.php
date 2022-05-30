@@ -11,6 +11,6 @@ class PixType extends Model
 
     public function users()
     {
-        return $this->hasMany('App\User');
+        return $this->hasMany('App\Models\User');
     }
 }
