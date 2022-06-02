@@ -20,6 +20,13 @@ class DatabaseSeeder extends Seeder
             DddSeeder::class,
             CitySeeder::class,
             PixTypeSeeder::class,
+            AgeSeeder::class,
+            CastrationSeeder::class,
+            ObjectiveSeeder::class,
+            SexSeeder::class,
+            SizeSeeder::class,
+            SpecieSeeder::class,
+            BreedSeeder::class,
         ]);
     }
 }
