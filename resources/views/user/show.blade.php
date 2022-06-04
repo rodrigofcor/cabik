@@ -6,7 +6,7 @@
 
 <div class="container-xxl p-4">
     <div class="row">
-        <img class="profile-photo-show" src="{{ $user->avatar }}"/>
+        <div class="profile-photo-show"><figure><img src="{{ $user->avatar }}"/></figure></div>
         <div class="w-auto">
             <div class="mt-0">
                 <h2>{{ $user->name }}</h2>

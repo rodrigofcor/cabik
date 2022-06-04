@@ -16,7 +16,7 @@ body {
   height: 200px;
   object-fit: cover;
   border-radius: 50%;
-  border:2px solid gainsboro; 
+  border: 2px solid gainsboro; 
   opacity: 1;
   transition: .3s ease-in-out;
   -webkit-transition: .3s ease-in-out;
@@ -31,19 +31,23 @@ body {
   display: none;
 }
 
-.profile-photo-modal {
+.profile-photo-modal figure img {
   width: 150px;
   height: 150px;
   object-fit: cover;
   border-radius: 50%;
-  border:2px solid gainsboro; 
+  border: 2px solid gainsboro; 
 }
 
 .profile-photo-show {
+  max-width: 215px;
+}
+
+.profile-photo-show figure img {
   width: 200px;
   height: 200px;
   object-fit: cover;
   border-radius: 50%;
-  border:2px solid gainsboro; 
+  border: 2px solid gainsboro; 
 }
 
