@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('pets', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->text('description');
+            $table->string('name', 20)->nullable();
+            $table->text('description')->nullable();
             $table->boolean('special');
             $table->unsignedBigInteger('breed_id');
             $table->string('age_id', 1);

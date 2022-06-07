@@ -9,6 +9,8 @@ class City extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     public function ddd()
     {
         return $this->belongsTo('App\Models\Ddd');

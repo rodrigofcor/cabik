@@ -156,6 +156,16 @@ return [
         'pix' => 'chave pix',
         'password' => 'senha',
         'profile_photo' => 'foto de perfil',
+        'pet_photo' => 'foto do pet',
+        'specie_id' => 'espécie',
+        'breed_id' => 'raça',
+        'age_id' => 'idade',
+        'size_id' => 'tamanho',
+        'special' => 'cuidados especiais',
+        'sex_id' => 'sexo',
+        'castration_id' => 'castração',
+        'objective_id' => 'objetivo',
+        'description' => 'descrição',
     ],
 
 ];

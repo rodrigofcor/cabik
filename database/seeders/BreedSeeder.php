@@ -227,6 +227,7 @@ class BreedSeeder extends Seeder
             ['name' => 'Savannah', 'specie_id' => 2],
             ['name' => 'Scottish Fold', 'specie_id' => 2],
             ['name' => 'Selkirk Rex', 'specie_id' => 2],
+            ['name' => 'Sem Raça Definida', 'specie_id' => 2],
             ['name' => 'Serengeti', 'specie_id' => 2],
             ['name' => 'Siamês', 'specie_id' => 2],
             ['name' => 'Singapura', 'specie_id' => 2],
@@ -285,6 +286,7 @@ class BreedSeeder extends Seeder
             ['name' => 'Rhinelander', 'specie_id' => 3],
             ['name' => 'Sable Americano', 'specie_id' => 3],
             ['name' => 'Sati', 'specie_id' => 3],
+            ['name' => 'Sem Raça Definida', 'specie_id' => 3],
             ['name' => 'Siberiano', 'specie_id' => 3],
             ['name' => 'Sussex', 'specie_id' => 3],
             ['name' => 'Tan', 'specie_id' => 3],
@@ -297,6 +299,7 @@ class BreedSeeder extends Seeder
             ['name' => 'Canário', 'specie_id' => 4],
             ['name' => 'Papagaio', 'specie_id' => 4],
             ['name' => 'Periquito', 'specie_id' => 4],
+            ['name' => 'Sem Raça Definida', 'specie_id' => 4],
         ]);
     }
 }

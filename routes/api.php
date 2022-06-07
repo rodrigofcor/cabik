@@ -20,3 +20,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('ddd/{id}/city', [ApiController::class, 'getCitiesOfDdd']);
+Route::get('specie/{id}/breed', [ApiController::class, 'getBreedsOfSpecie']);

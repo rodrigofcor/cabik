@@ -10,6 +10,7 @@ class Objective extends Model
     use HasFactory;
 
     public $incrementing = false;
+    public $timestamps = false;
 
     public function pets()
     {

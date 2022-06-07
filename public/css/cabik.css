@@ -7,6 +7,16 @@ body {
   background-image: linear-gradient(to right, #285A84 , #6B5C5C, #CE5F21);
 }
 
+.welcome-image {
+  height: 65vh;
+}
+
+.welcome-image img {
+  max-height: 100%;
+  width: auto;
+  object-fit: contain;
+}
+
 .ast {
   color: #CE5F21 !important;
 }
@@ -50,4 +60,24 @@ body {
   border-radius: 50%;
   border: 2px solid gainsboro; 
 }
+
+.pet-photo-upload figure img {
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+  opacity: 1;
+  transition: .3s ease-in-out;
+  -webkit-transition: .3s ease-in-out;
+}
+
+.pet-photo-upload figure:hover img {
+  cursor: pointer;
+  opacity: .5;
+}
+
+.pet-photo-upload input {
+  display: none;
+}
+
+
 

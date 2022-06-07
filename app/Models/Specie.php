@@ -9,6 +9,8 @@ class Specie extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     public function breeds()
     {
         return $this->hasMany('App\Models\Breed');

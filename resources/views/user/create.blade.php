@@ -17,7 +17,7 @@
     <div class="row">
       <div class="profile-photo-upload">
         <label for="profile_photo" style="width: 100%">
-          <figure><img id="profile-photo-preview" style="display: block; margin-left: auto;margin-right: auto;" src="{{ asset('images/profile-photo-ico.png') }}"/></figure>
+          <figure><img id="profile-photo-preview" style="display: block; margin-left: auto;margin-right: auto;" src="{{ asset('images/profile-photo-ico.png') }}" alt="Foto de perfil"/></figure>
         </label>
 
         <input type="file" id="profile_photo" name="profile_photo" accept="image/*">
@@ -124,7 +124,8 @@
             <div class="form-group">
               <div class="form-check">
                 <input type="checkbox" class="form-check-input" id="show_pix" name="show_pix" value="on" {{ old('show_pix') == 'on' ? 'checked' : '' }}>
-                <label class="form-check-label" for="show_pix">Exibir no meu perfil</label>
+                <label class="form-check-label" for="show_pix">Exibir no meu perfil e publicações</label>
+                <small id="PixTypeHelp" class="form-text text-muted float-end">Por segurança evite CPF ou CNPJ.</small>
               </div>
             </div>
           </div>
@@ -168,17 +169,21 @@
 <script>
 $(document).ready(function () { 
 
-  let oldCityId = {{ old('city_id') }}
+  let defaultSrc = "{{ asset('images/profile-photo-ico.png') }}"
+  let oldCityId = "{{ old('city_id') }}"
+
   fetchCityId()
 
   $('#profile_photo').change(function () {
     const file = this.files[0]
-    if (file){
+    if (file) {
       let reader = new FileReader()
       reader.onload = function(event) {
         $('#profile-photo-preview').attr('src', event.target.result)
       }
       reader.readAsDataURL(file)
+    } else {
+      $('#profile-photo-preview').attr('src', defaultSrc)
     }
   })
   

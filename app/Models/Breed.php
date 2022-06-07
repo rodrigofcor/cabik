@@ -9,7 +9,8 @@ class Breed extends Model
 {
     use HasFactory;
 
-    
+    public $timestamps = false;
+
     public function specie()
     {
         return $this->belongsTo('App\Models\Specie');

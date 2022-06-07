@@ -19,7 +19,7 @@ class User extends Authenticatable
         'full_phone',
         'full_pix',
         'localization',
-        'avatar',
+        'avatar_src',
     ];
     
     /**
@@ -84,7 +84,7 @@ class User extends Authenticatable
         }
     }
 
-    public function getAvatarAttribute()
+    public function getAvatarSrcAttribute()
     {
         return url('storage/' . $this->profile_photo);
     }
@@ -97,5 +97,10 @@ class User extends Authenticatable
     public function pixType()
     {
         return $this->belongsTo('App\Models\PixType');
+    }
+
+    public function pets()
+    {
+        return $this->hasMany('App\Models\Pet');
     }
 }

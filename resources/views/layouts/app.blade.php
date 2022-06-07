@@ -19,7 +19,7 @@
         <nav class="navbar navbar-dark main-nav">
             <div class="container-fluid">
                 <a class="navbar-brand" href="{{ route("home") }}">
-                    <img src="{{ asset('images/logo.png') }}" alt="" height="50" class="d-inline-block">
+                    <img src="{{ asset('images/logo.png') }}" alt="Logo" height="50" class="d-inline-block">
                     Cabik
                 </a>
 

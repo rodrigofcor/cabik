@@ -19,7 +19,7 @@ class ObjectiveSeeder extends Seeder
         DB::table('objectives')->insert([
             ['id' => 'F', 'name' => 'Ajuda Financeira'],
             ['id' => 'D', 'name' => 'Doação'],
-            ['id' => 'A', 'name' => 'Ambos'],
+            ['id' => 'A', 'name' => 'Doação e ajuda financeira'],
         ]);
     }
 }

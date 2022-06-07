@@ -10,6 +10,7 @@ class Age extends Model
     use HasFactory;
 
     public $incrementing = false;
+    public $timestamps = false;
 
     public function pets()
     {

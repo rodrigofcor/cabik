@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class PixType extends Model
+class PetPhoto extends Model
 {
     use HasFactory;
 
     public $timestamps = false;
-    
-    public function users()
+
+    public function pet()
     {
-        return $this->hasMany('App\Models\User');
+        return $this->belongsTo('App\Models\Pet');
     }
 }

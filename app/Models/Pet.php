@@ -9,6 +9,33 @@ class Pet extends Model
 {
     use HasFactory;
 
+    protected $appends = [
+        'specie',
+        'title',
+        'main_photo_src',
+        'special_status',
+    ];
+
+    public function getSpecieAttribute()
+    {
+        return $this->breed->specie;
+    }
+
+    public function getTitleAttribute()
+    {
+        return $this->specie->name . ' ' . $this->breed->name . ' ' . $this->sex->name . ' ' . $this->age->name;
+    }
+
+    public function getMainPhotoSrcAttribute()
+    {
+        return url('storage/' . $this->photos->where('order', 0)->first()->photo);
+    }
+
+    public function getSpecialStatusAttribute()
+    {
+        return $this->special == 1 ? 'Necessita' : 'Não necessita';
+    }
+
     public function user()
     {
         return $this->belongsTo('App\Models\User');
@@ -22,11 +49,6 @@ class Pet extends Model
     public function breed()
     {
         return $this->belongsTo('App\Models\Breed');
-    }
-
-    public function specie()
-    {
-        return $this->hasOneThrough(Breed::class, Specie::class);
     }
 
     public function castration()
@@ -47,5 +69,10 @@ class Pet extends Model
     public function size()
     {
         return $this->belongsTo('App\Models\Size');
+    }
+
+    public function photos()
+    {
+        return $this->hasMany('App\Models\PetPhoto');
     }
 }

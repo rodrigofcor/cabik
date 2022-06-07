@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\PetController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,6 +25,7 @@ Route::middleware('guest')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::post('/logout', [HomeController::class, 'logout'])->name('logout');
+    Route::resource('pet', PetController::class);
 });
 
 Route::prefix('user')->group(function () {
