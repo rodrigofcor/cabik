@@ -14,6 +14,8 @@ class Pet extends Model
         'title',
         'main_photo_src',
         'special_status',
+        'all_photos_src',
+        'localization',
     ];
 
     public function getSpecieAttribute()
@@ -34,6 +36,22 @@ class Pet extends Model
     public function getSpecialStatusAttribute()
     {
         return $this->special == 1 ? 'Necessita' : 'Não necessita';
+    }
+
+    public function getAllPhotosSrcAttribute()
+    {
+        $srcs = [];
+        foreach ($this->photos->sortBy('order') as $key => $photo)
+        {
+            array_push($srcs, url('storage/' . $photo->photo));
+        }
+
+        return json_encode((object) $srcs);
+    }
+
+    public function getLocalizationAttribute()
+    {
+        return $this->user->city->name . '/' . substr($this->user->city->ddd->name, -2);
     }
 
     public function user()

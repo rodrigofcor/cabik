@@ -59,34 +59,58 @@
     @endif
 
     <div class="row row-cols-1 row-cols-md-2 g-4">
-    @foreach ($user->pets as $pet)
-    <div class="col">
-        <div class="card">
-            <div class="row g-0">
-              <div class="col-md-4">
-                <img src="{{ $pet->mainPhotoSrc }}" class="img-fluid rounded-start" alt="Foto do pet">
-              </div>
-              <div class="col-md-8">
-                <div class="card-body">
-                  <h5 class="card-title">{{ $pet->title }}</h5>
-                  <ul class="list-group list-group-flush">
-                    <li class="list-group-item"><strong>Tamanho:</strong> {{ $pet->size->name }}</li>
-                    <li class="list-group-item"><strong>Cuidados Especiais:</strong> {{ $pet->specialStatus }}</li>
-                    <li class="list-group-item"><strong>Castrado:</strong> {{ $pet->castration->name }}</li>
-                    <li class="list-group-item"><strong>Objetivo:</strong> {{ $pet->objective->name }}</li>
-                  </ul>
-                  
-                  <div class="float-end mb-2">
-                      <a href="#" class="btn btn-success">Contato</a>
-                      <a href="#" class="btn btn-primary">Pix</a>
-                  </div>
+        @foreach ($user->pets as $pet)
+            <div class="col">
+                <div class="card">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <img src="{{ $pet->mainPhotoSrc }}" class="img-fluid rounded-start" alt="Foto do pet">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                            <h5 class="card-title">{{ $pet->title }}</h5>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item"><strong>Tamanho:</strong> {{ $pet->size->name }}</li>
+                                <li class="list-group-item"><strong>Cuidados Especiais:</strong> {{ $pet->specialStatus }}</li>
+                                <li class="list-group-item"><strong>Castrado:</strong> {{ $pet->castration->name }}</li>
+                                <li class="list-group-item"><strong>Objetivo:</strong> {{ $pet->objective->name }}</li>
+                            </ul>
+                            
+                            <div class="float-end mb-2">
+                                <a href="#" type="button" class="btn btn-outline-secondary" 
+                                    data-bs-toggle="modal" 
+                                    data-bs-target="#modalPetSeeMore"
+                                    data-bs-title="{{ $pet->title }}"
+                                    data-bs-specie="{{ $pet->specie->name }}"
+                                    data-bs-breed="{{ $pet->breed->name }}"
+                                    data-bs-sex="{{ $pet->sex->name }}"
+                                    data-bs-age="{{ $pet->age->name }}"
+                                    data-bs-size="{{ $pet->size->name }}"
+                                    data-bs-special="{{ $pet->specialStatus }}"
+                                    data-bs-castration="{{ $pet->size->name }}"
+                                    data-bs-objective="{{ $pet->objective->name }}"
+                                    data-bs-localization="{{ $pet->localization }}"
+                                    data-bs-description="{!! nl2br( $pet->description) !!}"
+                                    data-bs-srcs="{{ $pet->allPhotosSrc }}"
+                                >Ver mais</a>
+
+                                @if (!Auth::check() || Auth::user()->id != $user->id)
+                                    <a href="#" class="btn btn-success">Contato</a>
+
+                                    @if ($pet->objective->id == 'F' || $pet->objective->id == 'A')
+                                        <a href="#" class="btn btn-primary">Pix</a>
+                                    @endif
+                                @endif
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
+                </div>
             </div>
-          </div>
-    </div>
-    @endforeach
+        @endforeach
     </div>
 </div>
+
+@include('includes.modalPetSeeMore')  
 
 @endsection

@@ -77,11 +77,7 @@ class User extends Authenticatable
 
     public function getLocalizationAttribute()
     {
-        if($this->city) {
-            return $this->city->name . '/' . substr($this->city->ddd->name, -2);
-        } else {
-            return null;
-        }
+        return $this->city->name . '/' . substr($this->city->ddd->name, -2);
     }
 
     public function getAvatarSrcAttribute()
