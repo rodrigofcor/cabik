@@ -25,5 +25,5 @@ Route::get('ddd/{id}/city', [ApiController::class, 'getCitiesOfDdd']);
 Route::get('specie/{id}/breed', [ApiController::class, 'getBreedsOfSpecie']);
 
 Route::prefix('send-mail')->group(function () {
-    Route::post('/contact', [MailController::class, 'contact'])->name('mail.contact');
+    Route::post('/contact', [MailController::class, 'contactMail'])->name('mail.contact');
 });

@@ -101,6 +101,7 @@
                                         data-bs-title="{{ $pet->title }}"
                                         data-bs-tutorPhoto="{{ $pet->user->avatar_src }}"
                                         data-bs-tutor="{{ $pet->user->name }}"
+                                        data-bs-petId="{{ $pet->id }}"
 
                                         @if (Auth::check())
                                             data-bs-userName="{{ Auth::user()->name }}"

@@ -70,7 +70,6 @@ document.addEventListener("DOMContentLoaded", function(e) {
         var modalPetTitle = modalContact.querySelector('.modal-pet-title')
         var modalTutorPhoto = modalContact.querySelector('.modal-tutor-photo')
         var modalTutor = modalContact.querySelector('.modal-tutor')
-        var modalPetId = modalContact.querySelector('.modal-petId')
         var modalUserName = modalContact.querySelector('.modal-user-name')
         var modalUserPhone = modalContact.querySelector('.modal-user-phone')
         var modalUserEmail = modalContact.querySelector('.modal-user-email')
@@ -79,6 +78,7 @@ document.addEventListener("DOMContentLoaded", function(e) {
         var title = modalButton.getAttribute('data-bs-title')
         var tutorPhoto = modalButton.getAttribute('data-bs-tutorPhoto')
         var tutor = modalButton.getAttribute('data-bs-tutor')
+        var petId = modalButton.getAttribute('data-bs-petId')
         var userName = modalButton.getAttribute('data-bs-userName')
         var userPhone = modalButton.getAttribute('data-bs-userPhone')
         var userEmail = modalButton.getAttribute('data-bs-userEmail')
@@ -116,7 +116,7 @@ document.addEventListener("DOMContentLoaded", function(e) {
                 url: "{{ url('/api/send-mail/contact') }}",
                 timeout: 5000,
                 data: {
-                    "pet_id": modalPetId,
+                    "pet_id": petId,
                     "name": $('#modalContact #name').val(),
                     "phone": $('#modalContact #phone').val(),
                     "email": $('#modalContact #email').val(),

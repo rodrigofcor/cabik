@@ -6,11 +6,19 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
 use App\Mail\Contact;
+use App\Models\Pet;
 
 class MailController extends Controller
 {
-    public function contact(Request $request) 
+    public function contactMail(Request $request)
     {
-        dd($request->name);
+        $pet = Pet::find($request->pet_id);
+        Mail::to($pet->user->email)->send(new Contact(
+            $request->email, 
+            $request->phone, 
+            $pet->title, 
+            $request->name, 
+            $pet->user->name
+        ));
     }
 }
