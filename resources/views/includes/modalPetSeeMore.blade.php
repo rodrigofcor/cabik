@@ -23,6 +23,7 @@
           </div>
           <div class="col-md-6">
             <ul class="list-group list-group-flush">
+              <li class="list-group-item"><strong>Nome:</strong> <span class="modal-name"></span></li>
               <li class="list-group-item"><strong>Espécie:</strong> <span class="modal-specie"></span></li>
               <li class="list-group-item"><strong>Raça:</strong> <span class="modal-breed"></span></li>
               <li class="list-group-item"><strong>Sexo:</strong> <span class="modal-sex"></span></li>
@@ -42,7 +43,6 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-        <button type="submit" class="btn btn-primary">Continuar</button>
       </div>
     </div>
   </div>
@@ -59,6 +59,7 @@ document.addEventListener("DOMContentLoaded", function(e) {
     var modalButton = event.relatedTarget
 
     var modalTitle = modalPetSeeMore.querySelector('.modal-title')
+    var modalName = modalPetSeeMore.querySelector('.modal-name')
     var modalSpecie = modalPetSeeMore.querySelector('.modal-specie')
     var modalBreed = modalPetSeeMore.querySelector('.modal-breed')
     var modalSex= modalPetSeeMore.querySelector('.modal-sex')
@@ -72,6 +73,7 @@ document.addEventListener("DOMContentLoaded", function(e) {
     var modalHr = modalPetSeeMore.querySelector('.modal-hr')
 
     var title = modalButton.getAttribute('data-bs-title')
+    var name = modalButton.getAttribute('data-bs-name')
     var specie = modalButton.getAttribute('data-bs-specie')
     var breed = modalButton.getAttribute('data-bs-breed')
     var sex = modalButton.getAttribute('data-bs-sex')
@@ -98,6 +100,7 @@ document.addEventListener("DOMContentLoaded", function(e) {
     })
 
     modalTitle.textContent = title
+    modalName.textContent = name != '' ? name : 'Sem nome'
     modalSpecie.textContent = specie
     modalBreed.textContent = breed
     modalSex.textContent = sex

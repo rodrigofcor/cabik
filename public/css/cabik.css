@@ -85,5 +85,13 @@ body {
   object-fit: contain;
 }
 
+.profile-photo-contact-modal figure img {
+  width: 75px;
+  height: 75px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid gainsboro; 
+}
+
 
 

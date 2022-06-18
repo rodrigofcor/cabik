@@ -93,8 +93,7 @@
           <div class="row mt-4">
             <div class="form-group">
               <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="show_localization" name="show_localization" value="on" {{ old('show_localization') == 'on' ? 'checked' : '' }}>
-                <label class="form-check-label" for="show_localization">Exibir no meu perfil</label>
+                <label class="form-check-label"></label>
               </div>
             </div>
           </div>

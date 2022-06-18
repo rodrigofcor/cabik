@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\ApiController;
+use App\Http\Controllers\MailController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -21,3 +23,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('ddd/{id}/city', [ApiController::class, 'getCitiesOfDdd']);
 Route::get('specie/{id}/breed', [ApiController::class, 'getBreedsOfSpecie']);
+
+Route::prefix('send-mail')->group(function () {
+    Route::post('/contact', [MailController::class, 'contact'])->name('mail.contact');
+});

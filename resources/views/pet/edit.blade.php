@@ -1,63 +1,72 @@
 @extends('layouts.app')
 
-@section('title', 'Publicar Pet')
+@section('title', 'Editar Pet')
 
 @section('content')
 
 <div class="container-xxl p-4">
     <div class="row">
-        <h1>Publicar Pet</h1>
+        <h1>Editar Pet</h1>
     </div>
 
   @include('includes.alertError')  
 
-    <form action="{{ route("pet.store") }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route("pet.update", $pet) }}" method="POST" enctype="multipart/form-data">
         @csrf
+        @method('PUT')
 
         <div class="row mt-2">
             <div class="col-md-4">
                 <div id="carrouselInputPetPhotos" class="carousel slide carousel-dark slide" data-bs-ride="carousel" data-bs-interval="false">
                     <div class="carousel-indicators">
-                      <button type="button" data-bs-target="#carrouselInputPetPhotos" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                      <button type="button" data-bs-target="#carrouselInputPetPhotos" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                      <button type="button" data-bs-target="#carrouselInputPetPhotos" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                      <button type="button" data-bs-target="#carrouselInputPetPhotos" data-bs-slide-to="3" aria-label="Slide 4"></button>
+                        <button type="button" data-bs-target="#carrouselInputPetPhotos" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                        <button type="button" data-bs-target="#carrouselInputPetPhotos" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                        <button type="button" data-bs-target="#carrouselInputPetPhotos" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                        <button type="button" data-bs-target="#carrouselInputPetPhotos" data-bs-slide-to="3" aria-label="Slide 4"></button>
                     </div>
                     <div class="carousel-inner">
                       <div class="carousel-item active">
                         <div class="pet-photo-upload text-center">
                             <label for="pet_photo_1">
-                              <figure><img id="preview_pet_photo_1" src="{{ asset('images/pet-photo-ico.png') }}" alt="Preview"/></figure>
+                              <figure><img id="preview_pet_photo_1" src="{{ $pet->mainPhotoSrc }}" alt="Preview"/></figure>
                             </label>
                     
-                            <input type="file" class="pet_photo" id="pet_photo_1" name="pet_photo[]" accept="image/*">
+                            <input type="file" class="pet_photo" id="pet_photo_1" name="pet_photo_0" accept="image/*" src="{{ $pet->mainPhotoSrc }}">
                         </div>
                       </div>
                       <div class="carousel-item">
                         <div class="pet-photo-upload text-center">
                             <label for="pet_photo_2">
-                                <figure><img id="preview_pet_photo_2" src="{{ asset('images/pet-photo-ico.png') }}" alt="Preview"/></figure>
-                              </label>
+                                <figure><img id="preview_pet_photo_2" src="{{ $pet->photos->where('order', 1)->first()->photoSrc }}" alt="Preview"/></figure>
+                            </label>
                       
-                              <input type="file" class="pet_photo" id="pet_photo_2" name="pet_photo[]" accept="image/*">
+                            <input type="file" class="pet_photo" id="pet_photo_2" name="pet_photo_1" accept="image/*">
                         </div>
                       </div>
                       <div class="carousel-item">
                         <div class="pet-photo-upload text-center">
                             <label for="pet_photo_3">
-                                <figure><img id="preview_pet_photo_3" src="{{ asset('images/pet-photo-ico.png') }}" alt="Preview"/></figure>
-                              </label>
+                                @if ($pet->photos->where('order', 2)->first())
+                                    <figure><img id="preview_pet_photo_3" src="{{ $pet->photos->where('order', 2)->first()->photoSrc }}" alt="Preview"/></figure>
+                                @else
+                                    <figure><img id="preview_pet_photo_3" src="{{ asset('images/pet-photo-ico.png') }}" alt="Preview"/></figure>
+                                @endif
+                            </label>
                       
-                              <input type="file" class="pet_photo" id="pet_photo_3" name="pet_photo[]" accept="image/*">
+                            <input type="file" class="pet_photo" id="pet_photo_3" name="pet_photo_2" accept="image/*">
                         </div>
                       </div>
                       <div class="carousel-item">
                         <div class="pet-photo-upload text-center">
                             <label for="pet_photo_4">
-                                <figure><img id="preview_pet_photo_4" src="{{ asset('images/pet-photo-ico.png') }}" alt="Preview"/></figure>
-                              </label>
+                                @if ($pet->photos->where('order', 3)->first())
+                                    <figure><img id="preview_pet_photo_4" src="{{ $pet->photos->where('order', 3)->first()->photoSrc }}" alt="Preview"/></figure>
+                                @else
+                                    <figure><img id="preview_pet_photo_4" src="{{ asset('images/pet-photo-ico.png') }}" alt="Preview"/></figure>
+                                @endif
+                            </label>
                       
-                              <input type="file" class="pet_photo" id="pet_photo_4" name="pet_photo[]" accept="image/*">
+                            <input type="file" class="pet_photo" id="pet_photo_4" name="pet_photo_3" accept="image/*">
                         </div>
                       </div>
                     </div>
@@ -74,14 +83,14 @@
                 <div class="row">
                     <div class="form-group">
                         <label for="name">Nome</span></label>
-                        <input type="text" class="form-control title-case" id="name" name="name" placeholder="Rex" value="{{ old('name') }}">
+                        <input type="text" class="form-control title-case" id="name" name="name" placeholder="Rex" value="{{ old('name', $pet->name) }}">
                     </div>
                 </div>
 
                 <div class="row mt-3">
                     <div class="form-group">
                         <label for="specie_id">Espécie <span class="ast">*</span></label>
-                        {!! Form::select('specie_id', $species, old('specie_id'), ['id' => 'specie_id', 'class' => 'form-control','placeholder' => 'Qual a espécie?']) !!}
+                        {!! Form::select('specie_id', $species, old('specie_id', $pet->specie->id), ['id' => 'specie_id', 'class' => 'form-control','placeholder' => 'Qual a espécie?']) !!}
                     </div>
                 </div>
 
@@ -99,13 +108,13 @@
                     <div class="form-group">
                         <label for="age_id">Idade <span class="ast">*</span></label>
                         <div class="radio mt-2">
-                            <label class="radio-inline"><input type="radio" name="age_id" value="F" {{ old('age_id') == 'F' ? 'checked' : '' }}>&nbsp;Filhote</label>
+                            <label class="radio-inline"><input type="radio" name="age_id" value="F" {{ old('age_id', $pet->age_id) == 'F' ? 'checked' : '' }}>&nbsp;Filhote</label>
                             &nbsp;
-                            <label class="radio-inline"><input type="radio" name="age_id" value="J" {{ old('age_id') == 'J' ? 'checked' : '' }}>&nbsp;Jovem</label>
+                            <label class="radio-inline"><input type="radio" name="age_id" value="J" {{ old('age_id', $pet->age_id) == 'J' ? 'checked' : '' }}>&nbsp;Jovem</label>
                             &nbsp;
-                            <label class="radio-inline"><input type="radio" name="age_id" value="A" {{ old('age_id') == 'A' ? 'checked' : '' }}>&nbsp;Adulto</label>
+                            <label class="radio-inline"><input type="radio" name="age_id" value="A" {{ old('age_id', $pet->age_id) == 'A' ? 'checked' : '' }}>&nbsp;Adulto</label>
                             &nbsp;
-                            <label class="radio-inline"><input type="radio" name="age_id" value="I" {{ old('age_id') == 'I' ? 'checked' : '' }}>&nbsp;Idoso</label>
+                            <label class="radio-inline"><input type="radio" name="age_id" value="I" {{ old('age_id', $pet->age_id) == 'I' ? 'checked' : '' }}>&nbsp;Idoso</label>
                         </div>
                     </div>
                 </div>
@@ -114,11 +123,11 @@
                     <div class="form-group">
                         <label for="size_id">Tamanho <span class="ast">*</span></label>
                         <div class="radio mt-2">
-                            <label class="radio-inline"><input type="radio" name="size_id" value="P" {{ old('size_id') == 'P' ? 'checked' : '' }}>&nbsp;Pequeno</label>
+                            <label class="radio-inline"><input type="radio" name="size_id" value="P" {{ old('size_id', $pet->size_id) == 'P' ? 'checked' : '' }}>&nbsp;Pequeno</label>
                             &nbsp;
-                            <label class="radio-inline"><input type="radio" name="size_id" value="M" {{ old('size_id') == 'M' ? 'checked' : '' }}>&nbsp;Médio</label>
+                            <label class="radio-inline"><input type="radio" name="size_id" value="M" {{ old('size_id', $pet->size_id) == 'M' ? 'checked' : '' }}>&nbsp;Médio</label>
                             &nbsp;
-                            <label class="radio-inline"><input type="radio" name="size_id" value="G" {{ old('size_id') == 'G' ? 'checked' : '' }}>&nbsp;Grande</label>
+                            <label class="radio-inline"><input type="radio" name="size_id" value="G" {{ old('size_id', $pet->size_id) == 'G' ? 'checked' : '' }}>&nbsp;Grande</label>
                         </div>
                     </div>
                 </div>
@@ -127,9 +136,9 @@
                     <div class="form-group">
                         <label for="special">Cuidados Especiais <span class="ast">*</span></label>
                         <div class="radio mt-2">
-                            <label class="radio-inline"><input type="radio" name="special" value="0" {{ old('special') == '0' ? 'checked' : '' }}>&nbsp;Não necessita</label>
+                            <label class="radio-inline"><input type="radio" name="special" value="0" {{ old('special', $pet->special) == '0' ? 'checked' : '' }}>&nbsp;Não necessita</label>
                             &nbsp;
-                            <label class="radio-inline"><input type="radio" name="special" value="1" {{ old('special') == '1' ? 'checked' : '' }}>&nbsp;Necessita</label>
+                            <label class="radio-inline"><input type="radio" name="special" value="1" {{ old('special', $pet->special) == '1' ? 'checked' : '' }}>&nbsp;Necessita</label>
                         </div>
                     </div>
                 </div>
@@ -138,11 +147,11 @@
                     <div class="form-group">
                         <label for="sex_id">Sexo <span class="ast">*</span></label>
                         <div class="radio mt-2">
-                            <label class="radio-inline"><input type="radio" name="sex_id" value="M" {{ old('sex_id') == 'M' ? 'checked' : '' }}>&nbsp;Macho</label>
+                            <label class="radio-inline"><input type="radio" name="sex_id" value="M" {{ old('sex_id', $pet->sex_id) == 'M' ? 'checked' : '' }}>&nbsp;Macho</label>
                             &nbsp;
-                            <label class="radio-inline"><input type="radio" name="sex_id" value="F" {{ old('sex_id') == 'F' ? 'checked' : '' }}>&nbsp;Fêmea</label>
+                            <label class="radio-inline"><input type="radio" name="sex_id" value="F" {{ old('sex_id', $pet->sex_id) == 'F' ? 'checked' : '' }}>&nbsp;Fêmea</label>
                             &nbsp;
-                            <label class="radio-inline"><input type="radio" name="sex_id" value="I" {{ old('sex_id') == 'I' ? 'checked' : '' }}>&nbsp;Não tenho certeza</label>
+                            <label class="radio-inline"><input type="radio" name="sex_id" value="I" {{ old('sex_id', $pet->sex_id) == 'I' ? 'checked' : '' }}>&nbsp;Não tenho certeza</label>
                         </div>
                     </div>
                 </div>
@@ -151,11 +160,11 @@
                     <div class="form-group">
                         <label for="castration_id">Castrado <span class="ast">*</span></label>
                         <div class="radio mt-2">
-                            <label class="radio-inline"><input type="radio" name="castration_id" value="S" {{ old('castration_id') == 'S' ? 'checked' : '' }}>&nbsp;Sim</label>
+                            <label class="radio-inline"><input type="radio" name="castration_id" value="S" {{ old('castration_id', $pet->castration_id) == 'S' ? 'checked' : '' }}>&nbsp;Sim</label>
                             &nbsp;
-                            <label class="radio-inline"><input type="radio" name="castration_id" value="N" {{ old('castration_id') == 'N' ? 'checked' : '' }}>&nbsp;Não</label>
+                            <label class="radio-inline"><input type="radio" name="castration_id" value="N" {{ old('castration_id', $pet->castration_id) == 'N' ? 'checked' : '' }}>&nbsp;Não</label>
                             &nbsp;
-                            <label class="radio-inline"><input type="radio" name="castration_id" value="I" {{ old('castration_id') == 'I' ? 'checked' : '' }}>&nbsp;Não tenho certeza</label>
+                            <label class="radio-inline"><input type="radio" name="castration_id" value="I" {{ old('castration_id', $pet->castration_id) == 'I' ? 'checked' : '' }}>&nbsp;Não tenho certeza</label>
                         </div>
                     </div>
                 </div>
@@ -164,11 +173,11 @@
                     <div class="form-group">
                         <label for="objective_id">Objetivo <span class="ast">*</span></label>
                         <div class="radio mt-2">
-                            <label class="radio-inline"><input type="radio" name="objective_id" value="D" {{ old('objective_id') == 'D' ? 'checked' : '' }}>&nbsp;Doar</label>
+                            <label class="radio-inline"><input type="radio" name="objective_id" value="D" {{ old('objective_id', $pet->objective_id) == 'D' ? 'checked' : '' }}>&nbsp;Doar</label>
                             &nbsp;
-                            <label class="radio-inline"><input type="radio" name="objective_id" value="F" {{ old('objective_id') == 'F' ? 'checked' : '' }}>&nbsp;Ajuda Financeira</label>
+                            <label class="radio-inline"><input type="radio" name="objective_id" value="F" {{ old('objective_id', $pet->objective_id) == 'F' ? 'checked' : '' }}>&nbsp;Ajuda Financeira</label>
                             &nbsp;
-                            <label class="radio-inline"><input type="radio" name="objective_id" value="A" {{ old('objective_id') == 'A' ? 'checked' : '' }}>&nbsp;Ambos</label>
+                            <label class="radio-inline"><input type="radio" name="objective_id" value="A" {{ old('objective_id', $pet->objective_id) == 'A' ? 'checked' : '' }}>&nbsp;Ambos</label>
                         </div>
                     </div>
                 </div>
@@ -177,15 +186,13 @@
                 <div class="row mt-2">
                     <div class="form-group">
                         <label for="description">Descrição</label>
-                        <textarea class="form-control" id="description" name="description" style="resize:none" rows="10" maxlength="500" placeholder="Coloração, tipo de pelo, corpotamento, alimentação, sobre o motivo do cadastro... Se necessitar de cuidados especiais, explique sobre.">{{ old('description') }}</textarea>
+                        <textarea class="form-control" id="description" name="description" style="resize:none" rows="10" maxlength="500" placeholder="Coloração, tipo de pelo, corpotamento, alimentação, sobre o motivo do cadastro... Se necessitar de cuidados especiais, explique sobre.">{{ old('description', $pet->description) }}</textarea>
                     </div>
                 </div>
               
                 <div class="d-flex justify-content-center mt-4">
-                    <button type="button" class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#modalAlertCreatePet">Publicar</button>
+                    <button type="submit" class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#modalAlertCreatePet">Salvar</button>
                 </div>
-
-                @include('includes.modalAlertCreatePet')  
             </div>
         </div>
     </form>
@@ -201,7 +208,7 @@
 $(document).ready(function () { 
 
     let defaultSrc = "{{ asset('images/pet-photo-ico.png') }}"
-    let oldBreedId = {{ old('breed_id') }}
+    let oldBreedId = {{ old('oldBreedId', $pet->breed_id) }}
 
     fetchBreedId()
 

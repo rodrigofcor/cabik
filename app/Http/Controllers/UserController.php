@@ -44,7 +44,6 @@ class UserController extends Controller
         $user->phone = $request->phone;
         $user->show_phone = $request->has('show_phone') ? 1 : 0;
         $user->city_id = $request->city_id;
-        $user->show_localization = $request->has('show_localization') ? 1 : 0;
         $user->pix_type_id = $request->pix_type_id;
         $user->pix = $request->pix;
         $user->show_pix= $request->has('show_pix') ? 1 : 0;
@@ -89,7 +88,6 @@ class UserController extends Controller
         $user->phone = $request->phone;
         $user->show_phone = $request->has('show_phone') ? 1 : 0;
         $user->city_id = $request->city_id;
-        $user->show_localization = $request->has('show_localization') ? 1 : 0;
         $user->pix_type_id = $request->pix_type_id;
         $user->pix = $request->pix;
         $user->show_pix= $request->has('show_pix') ? 1 : 0;

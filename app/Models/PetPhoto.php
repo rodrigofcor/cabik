@@ -11,6 +11,15 @@ class PetPhoto extends Model
 
     public $timestamps = false;
 
+    protected $appends = [
+        'photo_src'
+    ];
+
+    public function getPhotoSrcAttribute()
+    {
+        return url('storage/' . $this->photo);
+    }
+
     public function pet()
     {
         return $this->belongsTo('App\Models\Pet');

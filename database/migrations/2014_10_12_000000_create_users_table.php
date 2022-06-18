@@ -21,7 +21,6 @@ return new class extends Migration
             $table->string('phone', 10)->nullable();
             $table->boolean('show_phone')->default(0);
             $table->unsignedBigInteger('city_id');
-            $table->boolean('show_localization')->default(0);
             $table->unsignedBigInteger('pix_type_id')->nullable();
             $table->string('pix')->nullable();
             $table->boolean('show_pix')->default(0);

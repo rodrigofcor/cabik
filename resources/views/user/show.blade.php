@@ -33,13 +33,11 @@
                     </div>
                 @endif
 
-                @if ($user->show_localization == 1 && $user->localization)
-                    <div class="row">
-                        <span><strong>Cidade:</strong> {{ $user->localization }}</span>
-                    </div>
-                @endif
+                <div class="row">
+                    <span><strong>Cidade:</strong> {{ $user->localization }}</span>
+                </div>
 
-                @if ($user->show_pix == 1 && $user->full_pix )
+                @if ($user->show_pix == 1 && $user->full_pix)
                     <div class="row">
                         <span><strong>Pix:</strong> {{ $user->full_pix }}</span>
                     </div>
@@ -77,10 +75,11 @@
                             </ul>
                             
                             <div class="float-end mb-2">
-                                <a href="#" type="button" class="btn btn-outline-secondary" 
+                                <button type="button" class="btn btn-outline-secondary" 
                                     data-bs-toggle="modal" 
                                     data-bs-target="#modalPetSeeMore"
                                     data-bs-title="{{ $pet->title }}"
+                                    data-bs-name="{{ $pet->name }}"
                                     data-bs-specie="{{ $pet->specie->name }}"
                                     data-bs-breed="{{ $pet->breed->name }}"
                                     data-bs-sex="{{ $pet->sex->name }}"
@@ -92,14 +91,34 @@
                                     data-bs-localization="{{ $pet->localization }}"
                                     data-bs-description="{!! nl2br( $pet->description) !!}"
                                     data-bs-srcs="{{ $pet->allPhotosSrc }}"
-                                >Ver mais</a>
+                                >Ver mais</button>
 
                                 @if (!Auth::check() || Auth::user()->id != $user->id)
-                                    <a href="#" class="btn btn-success">Contato</a>
+                                    <button href="#" class="btn btn-success"
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#modalContact"
+                                        data-bs-photo="{{ $pet->mainPhotoSrc }}"
+                                        data-bs-title="{{ $pet->title }}"
+                                        data-bs-tutorPhoto="{{ $pet->user->avatar_src }}"
+                                        data-bs-tutor="{{ $pet->user->name }}"
 
-                                    @if ($pet->objective->id == 'F' || $pet->objective->id == 'A')
+                                        @if (Auth::check())
+                                            data-bs-userName="{{ Auth::user()->name }}"
+                                            data-bs-userPhone="{{ Auth::user()->full_phone }}"
+                                            data-bs-userEmail="{{ Auth::user()->email }}"
+                                        @else
+                                            data-bs-userName=""
+                                            data-bs-userPhone=""
+                                            data-bs-userEmail=""
+                                        @endif
+                                    >Contato</button>
+
+                                    @if (($pet->objective->id == 'F' || $pet->objective->id == 'A') && ($pet->user->show_pix == 1 && $user->full_pix))
                                         <a href="#" class="btn btn-primary">Pix</a>
                                     @endif
+                                @else
+                                    <a href="{{ route('pet.edit', $pet) }}" class="btn btn-primary">Editar</a>
+                                    <a href="#" class="btn btn-danger">Deletar</a>
                                 @endif
                             </div>
                         </div>
@@ -111,6 +130,7 @@
     </div>
 </div>
 
-@include('includes.modalPetSeeMore')  
+@include('includes.modalPetSeeMore')
+@include('includes.modalContact')  
 
 @endsection
