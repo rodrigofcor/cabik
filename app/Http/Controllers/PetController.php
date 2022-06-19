@@ -176,4 +176,9 @@ class PetController extends Controller
 
         return redirect()->route('user.show', Auth::user());
     }
+
+    public function search()
+    {  
+        return view('pet.search');
+    }
 }

@@ -24,6 +24,8 @@ Route::middleware('guest')->group(function () {
     Route::post('/authenticate', [HomeController::class, 'authenticate'])->name('authenticate');
 });
 
+Route::get('/pet/search', [PetController::class, 'search'])->name('pet.search');
+
 Route::middleware('auth')->group(function () {
     Route::post('/logout', [HomeController::class, 'logout'])->name('logout');
     Route::resource('pet', PetController::class);
@@ -36,3 +38,4 @@ Route::prefix('user')->group(function () {
     Route::put('/{user}', [UserController::class, 'update'])->name('user.update')->middleware('auth');
     Route::get('/{user}/edit', [UserController::class, 'edit'])->name('user.edit')->middleware('auth');
 });
+
