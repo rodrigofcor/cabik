@@ -47,7 +47,7 @@
 
             <div class="row mt-4">
                 <div class="d-flex justify-content-center">
-                    <button type="button" class="modal-button-contact btn btn-success">Enviar Contato</button>
+                    <button type="button" class="modal-button-contact btn btn-success" data-bs-dismiss="modal">Enviar Contato</button>
                 </div>
             </div>
         </div>
