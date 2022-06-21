@@ -5,7 +5,12 @@
 @section('content')
 
 <div id="app">
-    <search-pet/>
+    <search-pet 
+        :ddds="{{ $ddds }}"
+        :species="{{ $species }}"
+        :ages="{{ $ages }}"
+        :sizes="{{ $sizes }}"
+    />
 </div>
 
 @endsection

@@ -25,7 +25,7 @@
 
                 <form class="form-inline">
                     @if (Auth::check())
-                        <a class="btn btn-outline-light" type="button" href="#"><i class="fa fa-search"></i></a>
+                        <a href="{{ route('pet.search') }}" type="button" class="btn btn-outline-light"><i class="fa fa-search"></i></a>
                         <a class="btn btn-outline-light" type="button" href="#"><i class="fas fa-plus"></i></a>
                         <a class="btn btn-outline-light" type="button" href="#"><i class="fas fa-bell"></i></a>
                         <button class="btn btn-outline-light" type="button" data-bs-toggle="modal" data-bs-target="#modalUserOptions"><i class="fas fa-user-alt"></i></button>

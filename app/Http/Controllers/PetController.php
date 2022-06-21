@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\Pet;
 use App\Models\Specie;
 use App\Models\PetPhoto;
+use App\Models\Ddd;
+use App\Models\Age;
+use App\Models\Size;
 
 class PetController extends Controller
 {
@@ -179,6 +182,11 @@ class PetController extends Controller
 
     public function search()
     {  
-        return view('pet.search');
+        $ddds = Ddd::all()->sortBy('id')->pluck('name', 'id');
+        $species = Specie::all()->sortBy('name')->pluck('name', 'id');
+        $ages = Age::all()->sortBy('id')->pluck('name', 'id');
+        $sizes = Size::all()->sortByDesc('id')->pluck('name', 'id');
+
+        return view('pet.search', compact('ddds', 'species', 'ages', 'sizes'));
     }
 }
