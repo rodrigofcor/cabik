@@ -86,7 +86,7 @@
                                     data-bs-age="{{ $pet->age->name }}"
                                     data-bs-size="{{ $pet->size->name }}"
                                     data-bs-special="{{ $pet->specialStatus }}"
-                                    data-bs-castration="{{ $pet->size->name }}"
+                                    data-bs-castration="{{ $pet->castration->name }}"
                                     data-bs-objective="{{ $pet->objective->name }}"
                                     data-bs-localization="{{ $pet->localization }}"
                                     data-bs-description="{!! nl2br( $pet->description) !!}"

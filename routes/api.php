@@ -23,6 +23,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('ddd/{id}/city', [ApiController::class, 'getCitiesOfDdd']);
 Route::get('specie/{id}/breed', [ApiController::class, 'getBreedsOfSpecie']);
+Route::get('pet/search', [ApiController::class, 'searchPets']);
 
 Route::prefix('send-mail')->group(function () {
     Route::post('/contact', [MailController::class, 'contactMail'])->name('mail.contact');

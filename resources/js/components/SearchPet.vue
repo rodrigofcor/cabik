@@ -49,6 +49,7 @@
                 <a type="button" class="btn btn-secondary form-control" aria-expanded="false" aria-controls="showMoreFilters"
                     data-bs-toggle="collapse" 
                     data-bs-target="#showMoreFilters"
+                    v-on:click="resetMoreFilters()"
                 ><i class="fa fa-ellipsis-h"></i> Detalhes</a>
             </div>
         </div>
@@ -56,7 +57,7 @@
         <div class="col-md-2">
             <div class="form-group">
                 <label>&nbsp;</label>
-                <button type="button" class="btn btn-primary form-control"><i class="fa fa-search"></i> Pesquisar</button>
+                <button v-on:click="search()" type="button" class="btn btn-primary form-control"><i class="fa fa-search"></i> Pesquisar</button>
             </div>
         </div>
     </div>
@@ -134,6 +135,69 @@
 
         </div>
     </div>
+    <div class="row">
+        <div class="row row-cols-1 row-cols-md-2 g-4">
+
+            <div v-for="pet in pets" :key="pet.id" class="col">
+                <div class="card">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <img :src="pet.photo" class="img-fluid rounded-start" alt="Foto do pet">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                            <h5 class="card-title">{{ pet.title }}</h5>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item"><strong>Tamanho:</strong> {{ pet.size }}</li>
+                                <li class="list-group-item"><strong>Cuidados Especiais:</strong> {{ pet.special }}</li>
+                                <li class="list-group-item"><strong>Castrado:</strong> {{ pet.castration }}</li>
+                                <li class="list-group-item"><strong>Objetivo:</strong> {{ pet.objective }}</li>
+                            </ul>
+                            
+                            <div class="float-end mb-2">
+                                <button type="button" class="btn btn-outline-secondary" 
+                                    data-bs-toggle="modal" 
+                                    data-bs-target="#modalPetSeeMore"
+                                    :data-bs-title="pet.title"
+                                    :data-bs-name="pet.name"
+                                    :data-bs-specie="pet.specie"
+                                    :data-bs-breed="pet.breed"
+                                    :data-bs-sex="pet.sex"
+                                    :data-bs-age="pet.age"
+                                    :data-bs-size="pet.size"
+                                    :data-bs-special="pet.special"
+                                    :data-bs-castration="pet.castration"
+                                    :data-bs-objective="pet.objective"
+                                    :data-bs-localization="pet.localization"
+                                    :data-bs-description="pet.description"
+                                    :data-bs-srcs="pet.srcs"
+                                >Ver mais</button>
+
+                                <button href="#" class="btn btn-success"
+                                    data-bs-toggle="modal" 
+                                    data-bs-target="#modalContact"
+                                    :data-bs-photo="pet.photo"
+                                    :data-bs-title="pet.title"
+                                    :data-bs-tutorPhoto="pet.tutorPhoto"
+                                    :data-bs-tutor="pet.tutor"
+                                    :data-bs-petId="pet.id"
+
+                                    data-bs-userName=""
+                                    data-bs-userPhone=""
+                                    data-bs-userEmail=""
+                                >Contato</button>
+
+
+                                <a v-show="pet.objective == 'Doação e ajuda financeira' || pet.objective == 'Ajuda Financeira'" href="#" class="btn btn-primary">Pix</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+
+        </div>
+    </div>
 </div>
 </template>
 <script>
@@ -159,6 +223,7 @@ export default {
             size_id: 'all',
             special: 'all',
             castration_id: 'all',
+            pets: [],
         }
     },
     watch: {
@@ -195,6 +260,37 @@ export default {
             })
             .then((response) => {
                 this.breeds = response.data        
+            })
+            .catch(function (error) {
+                console.log(error)
+            })
+        },
+        resetMoreFilters() {
+            this.city_id = 'all'
+            this.breed_id = 'all'
+            this.age_id = 'all'
+            this.size_id = 'all'
+            this.special = 'all'
+            this.castration_id = 'all'
+        },
+        search: function async() {
+            axios.get("/api/pet/search", {
+                params: {
+                    ddd_id: this.ddd_id,
+                    specie_id: this.specie_id,
+                    sex_id: this.sex_id,
+                    objective_id: this.objective_id,
+                    city_id: this.city_id,
+                    breed_id: this.breed_id,
+                    age_id: this.age_id,
+                    size_id: this.size_id,
+                    special: this.special,
+                    castration_id: this.castration_id,
+                }
+            })
+            .then((response) => {
+                // console.log(response.data)
+                this.pets = response.data.data        
             })
             .catch(function (error) {
                 console.log(error)
