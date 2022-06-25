@@ -186,7 +186,7 @@
                 <div class="row mt-2">
                     <div class="form-group">
                         <label for="description">Descrição</label>
-                        <textarea class="form-control" id="description" name="description" style="resize:none" rows="10" maxlength="500" placeholder="Coloração, tipo de pelo, corpotamento, alimentação, sobre o motivo do cadastro... Se necessitar de cuidados especiais, explique sobre.">{{ old('description', $pet->description) }}</textarea>
+                        <textarea class="form-control" id="description" name="description" style="resize:none" rows="10" maxlength="500" placeholder="Coloração, tipo de pelo, comportamento, alimentação, sobre o motivo do cadastro... Se necessitar de cuidados especiais, explique sobre.">{{ old('description', $pet->description) }}</textarea>
                     </div>
                 </div>
               

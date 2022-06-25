@@ -41,7 +41,7 @@ class ApiController extends Controller
                     ->whereRaw($conditions)
                     ->orderBy('pets.created_at')
                     ->select('pets.*')
-                    ->paginate(2);
+                    ->paginate(10);
 
         $data = [];
 

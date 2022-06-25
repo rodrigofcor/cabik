@@ -138,7 +138,7 @@
     <div class="row">
         <div class="row row-cols-1 row-cols-md-2 g-4">
 
-            <div v-for="pet in pets" :key="pet.id" class="col">
+            <div v-for="pet in results.data" :key="pet.id" class="col">
                 <div class="card">
                     <div class="row g-0">
                         <div class="col-md-4">
@@ -187,22 +187,30 @@
                                     data-bs-userEmail=""
                                 >Contato</button>
 
-
                                 <a v-show="pet.objective == 'Doação e ajuda financeira' || pet.objective == 'Ajuda Financeira'" href="#" class="btn btn-primary">Pix</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            </div>
+        </div>
 
         </div>
+    </div>
+
+    <div class="mt-4">
+        <pagination :data="results" align="center" @pagination-change-page="search" :key="paginationKey"></pagination>
     </div>
 </div>
 </template>
 <script>
+import pagination from 'laravel-vue-pagination'
+
 export default {
     name: 'SearchPet',
+    components:{
+        pagination
+    },
     props: {
         ddds: Object,
         species: Object,
@@ -223,8 +231,11 @@ export default {
             size_id: 'all',
             special: 'all',
             castration_id: 'all',
-            pets: [],
+            results: [],
         }
+    },
+    created() {
+        this.search()
     },
     watch: {
         ddd_id: function () {
@@ -273,8 +284,8 @@ export default {
             this.special = 'all'
             this.castration_id = 'all'
         },
-        search: function async() {
-            axios.get("/api/pet/search", {
+        search: function async(page = 1) {
+            axios.get("/api/pet/search?page=" + page, {
                 params: {
                     ddd_id: this.ddd_id,
                     specie_id: this.specie_id,
@@ -289,8 +300,7 @@ export default {
                 }
             })
             .then((response) => {
-                // console.log(response.data)
-                this.pets = response.data.data        
+                this.results = response.data   
             })
             .catch(function (error) {
                 console.log(error)
