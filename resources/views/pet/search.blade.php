@@ -4,6 +4,9 @@
 
 @section('content')
 
+@include('includes.modalPetSeeMore')
+@include('includes.modalContact')  
+
 <div id="app">
     <search-pet 
         :ddds="{{ $ddds }}"

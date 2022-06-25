@@ -132,75 +132,73 @@
                     </select>
                 </div>
             </div>
-
         </div>
     </div>
-    <div class="row">
-        <div class="row row-cols-1 row-cols-md-2 g-4">
+    <Transition name="transition-search-pet" mode="out-in">
+        <div :key="lasTransition">
+            <div class="row mt-2 row-cols-1 row-cols-md-2 g-4">
+                <div v-for="pet in results.data" :key="pet.id" class="col">
+                    <div class="card">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img :src="pet.photo" class="img-fluid rounded-start" alt="Foto do pet">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ pet.title }}</h5>
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item"><strong>Tamanho:</strong> {{ pet.size }}</li>
+                                        <li class="list-group-item"><strong>Cuidados Especiais:</strong> {{ pet.special }}</li>
+                                        <li class="list-group-item"><strong>Castrado:</strong> {{ pet.castration }}</li>
+                                        <li class="list-group-item"><strong>Objetivo:</strong> {{ pet.objective }}</li>
+                                    </ul>
+                                </div>
+                                <div class="float-end mb-2">
+                                    <button type="button" class="btn btn-outline-secondary" 
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#modalPetSeeMore"
+                                        :data-bs-title="pet.title"
+                                        :data-bs-name="pet.name"
+                                        :data-bs-specie="pet.specie"
+                                        :data-bs-breed="pet.breed"
+                                        :data-bs-sex="pet.sex"
+                                        :data-bs-age="pet.age"
+                                        :data-bs-size="pet.size"
+                                        :data-bs-special="pet.special"
+                                        :data-bs-castration="pet.castration"
+                                        :data-bs-objective="pet.objective"
+                                        :data-bs-localization="pet.localization"
+                                        :data-bs-description="pet.description"
+                                        :data-bs-srcs="pet.srcs"
+                                    >Ver mais</button>
+                                    &nbsp;
+                                    <button href="#" class="btn btn-success"
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#modalContact"
+                                        :data-bs-photo="pet.photo"
+                                        :data-bs-title="pet.title"
+                                        :data-bs-tutorPhoto="pet.tutorPhoto"
+                                        :data-bs-tutor="pet.tutor"
+                                        :data-bs-petId="pet.id"
 
-            <div v-for="pet in results.data" :key="pet.id" class="col">
-                <div class="card">
-                    <div class="row g-0">
-                        <div class="col-md-4">
-                            <img :src="pet.photo" class="img-fluid rounded-start" alt="Foto do pet">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                            <h5 class="card-title">{{ pet.title }}</h5>
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item"><strong>Tamanho:</strong> {{ pet.size }}</li>
-                                <li class="list-group-item"><strong>Cuidados Especiais:</strong> {{ pet.special }}</li>
-                                <li class="list-group-item"><strong>Castrado:</strong> {{ pet.castration }}</li>
-                                <li class="list-group-item"><strong>Objetivo:</strong> {{ pet.objective }}</li>
-                            </ul>
-                            
-                            <div class="float-end mb-2">
-                                <button type="button" class="btn btn-outline-secondary" 
-                                    data-bs-toggle="modal" 
-                                    data-bs-target="#modalPetSeeMore"
-                                    :data-bs-title="pet.title"
-                                    :data-bs-name="pet.name"
-                                    :data-bs-specie="pet.specie"
-                                    :data-bs-breed="pet.breed"
-                                    :data-bs-sex="pet.sex"
-                                    :data-bs-age="pet.age"
-                                    :data-bs-size="pet.size"
-                                    :data-bs-special="pet.special"
-                                    :data-bs-castration="pet.castration"
-                                    :data-bs-objective="pet.objective"
-                                    :data-bs-localization="pet.localization"
-                                    :data-bs-description="pet.description"
-                                    :data-bs-srcs="pet.srcs"
-                                >Ver mais</button>
-
-                                <button href="#" class="btn btn-success"
-                                    data-bs-toggle="modal" 
-                                    data-bs-target="#modalContact"
-                                    :data-bs-photo="pet.photo"
-                                    :data-bs-title="pet.title"
-                                    :data-bs-tutorPhoto="pet.tutorPhoto"
-                                    :data-bs-tutor="pet.tutor"
-                                    :data-bs-petId="pet.id"
-
-                                    data-bs-userName=""
-                                    data-bs-userPhone=""
-                                    data-bs-userEmail=""
-                                >Contato</button>
-
-                                <a v-show="pet.objective == 'Doação e ajuda financeira' || pet.objective == 'Ajuda Financeira'" href="#" class="btn btn-primary">Pix</a>
+                                        data-bs-userName=""
+                                        data-bs-userPhone=""
+                                        data-bs-userEmail=""
+                                    >Contato</button>
+                                    &nbsp;
+                                    <a v-show="pet.objective == 'Doação e ajuda financeira' || pet.objective == 'Ajuda Financeira'" href="#" class="btn btn-primary">Pix</a>
+                                    &nbsp;
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="mt-4">
+                <pagination :data="results" align="center" @pagination-change-page="search" :key="paginationKey"></pagination>
+            </div>
         </div>
-
-        </div>
-    </div>
-
-    <div class="mt-4">
-        <pagination :data="results" align="center" @pagination-change-page="search" :key="paginationKey"></pagination>
-    </div>
+    </Transition>
 </div>
 </template>
 <script>
@@ -232,6 +230,7 @@ export default {
             special: 'all',
             castration_id: 'all',
             results: [],
+            lasTransition: 0,
         }
     },
     created() {
@@ -246,7 +245,11 @@ export default {
         },
     },
     methods: {
-        loadCities: function async() {
+        showChangePageEffects () {
+            this.lasTransition += 1 
+            window.scrollTo(0,0)
+        },
+        loadCities: function async () {
             this.city_id = 'all'
 
             axios.get("/api/ddd/" + this.ddd_id + "/city", {
@@ -261,7 +264,7 @@ export default {
                 console.log(error)
             })
         },
-        loadBreeds: function async() {
+        loadBreeds: function async () {
             this.breed_id = 'all'
 
             axios.get("/api/specie/" + this.specie_id + "/breed", {
@@ -276,7 +279,7 @@ export default {
                 console.log(error)
             })
         },
-        resetMoreFilters() {
+        resetMoreFilters () {
             this.city_id = 'all'
             this.breed_id = 'all'
             this.age_id = 'all'
@@ -284,7 +287,7 @@ export default {
             this.special = 'all'
             this.castration_id = 'all'
         },
-        search: function async(page = 1) {
+        search: function async (page = 1) {
             axios.get("/api/pet/search?page=" + page, {
                 params: {
                     ddd_id: this.ddd_id,
@@ -300,7 +303,8 @@ export default {
                 }
             })
             .then((response) => {
-                this.results = response.data   
+                this.results = response.data  
+                this.showChangePageEffects()
             })
             .catch(function (error) {
                 console.log(error)
@@ -309,3 +313,14 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+    .transition-search-pet-enter-active, 
+    .transition-search-pet-leave-active {
+        transition: opacity 0.7s ease;
+    }
+    .transition-search-pet-enter, 
+    .transition-search-pet-leave-to {
+        opacity: 0;
+    }
+</style>
