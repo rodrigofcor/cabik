@@ -137,9 +137,9 @@
     <Transition name="transition-search-pet" mode="out-in">
         <div :key="lasTransition">
             <div v-if="loadingResults" class="spinner"></div>
-            <h1 v-else-if="results.data.length == 0" class="no-results">
+            <h3 v-else-if="results.data.length == 0" class="no-results">
                 Não foi encontrado nenhum pet com essas características!
-            </h1>
+            </h3>
             <div v-else>
                 <div class="row mt-2 row-cols-1 row-cols-md-2 g-4">
                     <div v-for="pet in results.data" :key="pet.id" class="col">
@@ -376,7 +376,7 @@ export default {
     .no-results {
         position: absolute;
         top: 50%;
-        left: 25%;
+        left: 30%;
     }
 
 </style>
