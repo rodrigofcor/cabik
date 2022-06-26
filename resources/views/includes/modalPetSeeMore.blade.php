@@ -33,6 +33,7 @@
               <li class="list-group-item"><strong>Castrado:</strong> <span class="modal-castration"></span></li>
               <li class="list-group-item"><strong>Objetivo:</strong> <span class="modal-objective"></span></li>
               <li class="list-group-item"><strong>Cidade:</strong> <span class="modal-localization"></span></li>
+              <li class="list-group-item"><strong>Tutor:</strong> <span class="modal-tutor"></span></li>
             </ul>
           </div>
         </div>
@@ -68,8 +69,9 @@ document.addEventListener("DOMContentLoaded", function(e) {
     var modalSpecial = modalPetSeeMore.querySelector('.modal-special')
     var modalCastration = modalPetSeeMore.querySelector('.modal-castration')
     var modalObjective = modalPetSeeMore.querySelector('.modal-objective')
-    var modalDescription = modalPetSeeMore.querySelector('.modal-description')
     var modalLocalization = modalPetSeeMore.querySelector('.modal-localization')
+    var modalTutor = modalPetSeeMore.querySelector('.modal-tutor')
+    var modalDescription = modalPetSeeMore.querySelector('.modal-description')
     var modalHr = modalPetSeeMore.querySelector('.modal-hr')
 
     var title = modalButton.getAttribute('data-bs-title')
@@ -83,6 +85,8 @@ document.addEventListener("DOMContentLoaded", function(e) {
     var castration = modalButton.getAttribute('data-bs-castration')
     var objective = modalButton.getAttribute('data-bs-objective')
     var localization = modalButton.getAttribute('data-bs-localization')
+    var tutor = modalButton.getAttribute('data-bs-tutor')
+    var tutorUrl = modalButton.getAttribute('data-bs-tutorUrl')
     var description = modalButton.getAttribute('data-bs-description')
     var srcs = JSON.parse(modalButton.getAttribute('data-bs-srcs'))
 
@@ -111,6 +115,12 @@ document.addEventListener("DOMContentLoaded", function(e) {
     modalObjective.textContent = objective
     modalLocalization.textContent = localization
     modalDescription.innerHTML = description
+
+    if (tutorUrl) {
+      modalTutor.innerHTML = '<a href="' + tutorUrl + '" class="link-primary text-decoration-none">' + tutor + '</a>'
+    } else {
+      modalTutor.innerHTML = tutor
+    }
 
     if (description) {
       modalHr.innerHTML = '<hr>'

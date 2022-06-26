@@ -91,6 +91,8 @@
                                     data-bs-localization="{{ $pet->localization }}"
                                     data-bs-description="{!! nl2br( $pet->description) !!}"
                                     data-bs-srcs="{{ $pet->allPhotosSrc }}"
+                                    data-bs-tutor="{{ $pet->user->name }}"
+                                    data-bs-tutorUrl=""
                                 >Ver mais</button>
 
                                 @if (!Auth::check() || Auth::user()->id != $user->id)
@@ -106,7 +108,7 @@
                                         @if (Auth::check())
                                             data-bs-userName="{{ Auth::user()->name }}"
                                             data-bs-userPhone="{{ Auth::user()->full_phone }}"
-                                            data-bs-userEmail="{{ Auth::user()->email }}"
+                                            danameta-bs-userEmail="{{ Auth::user()->email }}"
                                         @else
                                             data-bs-userName=""
                                             data-bs-userPhone=""
@@ -114,12 +116,16 @@
                                         @endif
                                     >Contato</button>
 
-                                    @if (($pet->objective->id == 'F' || $pet->objective->id == 'A') && ($pet->user->show_pix == 1 && $user->full_pix))
-                                        <a href="#" class="btn btn-primary">Pix</a>
+                                    @if (($pet->objective->id == 'F' || $pet->objective->id == 'A') && ($user->show_pix == 1 && $user->full_pix))
+                                        <button href="#" class="btn btn-primary"
+                                            data-bs-toggle="modal" 
+                                            data-bs-target="#modalShowPix"
+                                            data-bs-pix="{{ $pet->user->full_pix }}"
+                                        >Pix</button>
                                     @endif
                                 @else
                                     <a href="{{ route('pet.edit', $pet) }}" class="btn btn-primary">Editar</a>
-                                    <a href="#" class="btn btn-danger">Deletar</a>
+                                    {{-- <a href="#" class="btn btn-danger">Deletar</a> --}}
                                 @endif
                             </div>
                         </div>
@@ -133,5 +139,6 @@
 
 @include('includes.modalPetSeeMore')
 @include('includes.modalContact')  
+@include('includes.modalShowPix')  
 
 @endsection

@@ -22,8 +22,7 @@ class ApiController extends Controller
 
     public function searchPets(Request $request)
     {
-        $conditions = 'pets.user_id IS NOT NULL';
-
+        $conditions = isset($request->user_id) ? 'pets.user_id != "'. $request->user_id . '"' : 'pets.user_id IS NOT NULL';
         $conditions .= $request->ddd_id != 'all' ? ' AND cities.ddd_id = "' . $request->ddd_id . '"' : '';
         $conditions .= $request->specie_id != 'all' ? ' AND breeds.specie_id = ' . $request->specie_id : '';
         $conditions .= $request->sex_id != 'all' ? ' AND pets.sex_id = "' . $request->sex_id . '"' : '';
@@ -63,8 +62,10 @@ class ApiController extends Controller
                 'srcs' => $pet->allPhotosSrc, 
                 'photo' => $pet->mainPhotoSrc,
                 'tutorPhoto' => $pet->user->avatar_src,
-                'tutor' => $pet->user->name ,
+                'tutor' => $pet->user->name,
+                'tutorUrl' => route('user.show', $pet->user),
                 'id' => $pet->id,
+                'pix' => ($pet->objective->id == 'F' || $pet->objective->id == 'A') && ($pet->user->show_pix == 1 && $pet->user->full_pix) ? $pet->user->full_pix : null,
             ];
 
             array_push($data, $a);
