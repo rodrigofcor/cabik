@@ -3,7 +3,11 @@
 
 Cabik é um site para adoção de animais e ajuda financeira para os tutores. Desenvolvido por Rodrigo Coruja utilizando Laravel, Bootstrap, Vue, JQuery e MySQL.
 
-Cabik é meu projeto pessoal que desenvolvi em 2022 para meu TCC no curso de Análise e Desenvolvimento de Sistemas da universidade ULBRA Canoas (https://www.ulbra.br/canoas)
+Cabik é meu projeto pessoal que desenvolvi em 2022 para meu TCC no curso de Análise e Desenvolvimento de Sistemas da universidade <a href="https://www.ulbra.br/canoas">ULBRA Canoas</a>.
+
+- <a href="https://docs.google.com/presentation/d/e/2PACX-1vR6uoqCDlZcCdQVR-U36hlusPu6oql7XX4LMY7ZS-AGtSxtzZpgRZ3TUYei24l-_VOL3YiLQYLcrW4y/pub?start=false&loop=false&delayms=3000">Proposta</a>
+- <a href="https://drive.google.com/file/d/14H2L4uLPvAG6ZCkRMZH6fU7kE_70z879/view?usp=sharing">Postêr</a>
+- <a href="https://docs.google.com/document/d/e/2PACX-1vQhbxV7EFJ6M8Vo_QFgzVr4X-FghN2EPvrkW4xdwSuEEivtAeE2ts5H1Jce2fJWjIESQp62-eBzYF0W/pub">Artigo Final</a>
 
 ## Você pode experimentá-lo facilmente utilizando docker
 
