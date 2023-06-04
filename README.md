@@ -3,6 +3,55 @@
 
 Cabik é um site para adoção de animais e ajuda financeira para os tutores. Desenvolvido por Rodrigo Coruja utilizando Laravel, Bootstrap, Vue, JQuery e MySQL.
 
+Cabik é meu projeto pessoal que desenvolvi em 2022 para meu TCC no curso de Análise e Desenvolvimento de Sistemas da universidade ULBRA Canoas (https://www.ulbra.br/canoas)
+
+## Você pode experimentá-lo facilmente utilizando docker
+
+### Para executar os containers:
+
+- `docker compose up -d`
+
+### Se estiver executando pela primeira vez ou caso tenha deletado os volumes siga os seguintes passos:</h3>
+
+- Busque o id do container laravel com `docker ps`
+- Entre no container laravel com `docker exec -it {id_do_container_laravel} bash`
+- Após entrar no container execute `php artisan migrate && php artisan db:seed`
+
+### Acessando o site:
+
+- Através do endereço "localhost:8080" você poderá acessar com seu navegador
+
+### Acessando o banco de dados
+
+- Se quiser é possível acessar o banco de dados através de seu navegador com o phpmyadmin no endereço "localhost:8081". Ou usar um client mysql de sua preferência utilizando o endereço: "localhost", porta: "3306", usuário: "admin" e senha: "secret"
+
+## Para executar o projeto sem utilizar docker
+
+### <b>Obs:</b> Dependendo do seu ambiente poderá ser necessário ajustar ou adicionar mais etapas!
+
+### Requisitos
+ - node/npm
+ - php 8.*
+ - composer
+ - mysql ou mariadb
+
+### Configurando o ambiente: 
+
+- Crie um arquivo ".env" baseado e no mesmo diretório do arquivo ".env.example", porém com os valores ajustados para seu ambiente
+- Configure seu banco de dados e crie um schema de acordo como preencheu seu arquivo ".env"
+- No arquivo "/config/filesystems.php" descomente a linha 16 e comente a linha 17
+- `npm install`
+- `composer install`
+- `php artisan key:generate`
+- `php artisan storage:link`
+- `php artisan migrate`
+- `php artisab db:seed` 
+
+### Para executar após ter seu ambiente configurado:
+
+- Certifique-se que seu banco de dados esteja em execução
+- Inicie o servidor local com`php artisan serve` e acesse com seu navegador no endereço e porta fornecidas
+
 ## Mockups Origiais
 
 ![mockup-cabik-bem-vindo](https://user-images.githubusercontent.com/37222917/175831181-c32e6371-4af1-43ce-902c-ec7e8dd7d238.png)
