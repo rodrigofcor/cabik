@@ -13,7 +13,8 @@ return [
     |
     */
 
-    'default' => env('FILESYSTEM_DISK', 'local'),
+    //'default' => env('FILESYSTEM_DISK', 'local'),
+    'default' => 'public', // for demonstration purposes with docker
 
     /*
     |--------------------------------------------------------------------------

@@ -1,0 +1,48 @@
+# for demonstration purposes with docker
+
+version: '3'
+
+services:
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_DATABASE: laravel
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: secret
+      MYSQL_ROOT_PASSWORD: secret
+    ports:
+      - 3306:3306
+    expose:
+      - 3306
+    volumes:
+      - dbdata:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - 8081:80
+    environment:
+      PMA_HOST: db
+      PMA_USER: root
+      PMA_PASSWORD: secret
+    depends_on:
+      - db
+
+  laravel:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8080:80
+    expose:
+      - 8000
+    volumes:
+      - storage:/storage
+    depends_on:
+      - db
+      - phpmyadmin
+
+volumes:
+  dbdata:
+  storage:
