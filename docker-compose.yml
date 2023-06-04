@@ -19,7 +19,7 @@ services:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
 
   phpmyadmin:
-    image: phpmyadmin/phpmyadmin
+    image: phpmyadmin/phpmyadmin:5.2.1
     ports:
       - 8081:80
     environment:
