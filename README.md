@@ -1,13 +1,15 @@
 <p align="center"><img src="https://user-images.githubusercontent.com/37222917/175830787-0ab1cdd4-57db-495a-aa60-42e68c5c0406.png" width="400"></p>
 <h1 align="center">Cabik</h1>
 
-Cabik é um site para adoção de animais e ajuda financeira para os tutores. Desenvolvido por Rodrigo Coruja utilizando Laravel, Bootstrap, Vue, JQuery e MySQL.
 
-Cabik é meu projeto pessoal que desenvolvi em 2022 para meu TCC no curso de Análise e Desenvolvimento de Sistemas da universidade <a href="https://www.ulbra.br/canoas">ULBRA Canoas</a>.
+Cabik é é um site para adoção de animais e ajuda financeira para os tutores. Meu projeto pessoal que iniciei em 2022 para meu TCC no curso de Análise e Desenvolvimento de Sistemas da universidade <a href="https://www.ulbra.br/canoas">ULBRA Canoas</a>. 
+
+## TCC
 
 - <a href="https://docs.google.com/presentation/d/e/2PACX-1vR6uoqCDlZcCdQVR-U36hlusPu6oql7XX4LMY7ZS-AGtSxtzZpgRZ3TUYei24l-_VOL3YiLQYLcrW4y/pub?start=false&loop=false&delayms=3000">Proposta</a>
 - <a href="https://drive.google.com/file/d/14H2L4uLPvAG6ZCkRMZH6fU7kE_70z879/view?usp=sharing">Postêr</a>
 - <a href="https://docs.google.com/document/d/e/2PACX-1vQhbxV7EFJ6M8Vo_QFgzVr4X-FghN2EPvrkW4xdwSuEEivtAeE2ts5H1Jce2fJWjIESQp62-eBzYF0W/pub">Artigo Final</a>
+- <a href="https://github.com/rodrigofcor/cabik/tree/f2874f4e974dd1c20a995a2b7264f030422af7be">Como era no momento em que o apresentei</a>
 
 ## Você pode experimentá-lo facilmente utilizando docker
 
