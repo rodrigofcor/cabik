@@ -10,8 +10,11 @@ chmod -R 777 storage bootstrap/cache
 echo "📦 Instalando dependências do Composer..."
 php artisan package:discover --ansi || true
 
+php artisan config:clear
+php artisan cache:clear
+
 echo "🔑 Gerando APP_KEY..."
-php artisan key:generate --force || true
+php artisan key:generate --force
 
 echo "📂 Criando symlink de storage..."
 php artisan storage:link --relative || true
