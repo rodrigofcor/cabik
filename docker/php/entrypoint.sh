@@ -5,7 +5,7 @@ echo "🚀 Laravel Entrypoint iniciado..."
 
 echo "🔧 Ajustando permissões..."
 chown -R www-data:www-data storage bootstrap/cache
-chmod -R 775 storage bootstrap/cache
+chmod -R 777 storage bootstrap/cache
 
 echo "📦 Instalando dependências do Composer..."
 php artisan package:discover --ansi || true

@@ -43,6 +43,7 @@ services:
     - .env
     volumes:
       - ./:/var/www/html
+      - laravel_vendor:/var/www/html/vendor
     networks:
       - cabik_network
     depends_on:
