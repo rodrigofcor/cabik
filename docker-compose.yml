@@ -1,48 +1,70 @@
-# for demonstration purposes with docker
-
-version: '3'
-
 services:
-  db:
+  mysql:
     image: mysql:8.0
+    container_name: cabik_mysql_db
+    #restart: always
     environment:
-      MYSQL_DATABASE: laravel
-      MYSQL_USER: admin
-      MYSQL_PASSWORD: secret
-      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
     ports:
-      - 3306:3306
-    expose:
-      - 3306
+      - "3306:3306"
+    networks:
+      - cabik_network
     volumes:
-      - dbdata:/var/lib/mysql
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - mysql_volume:/var/lib/mysql
+      - ./docker/mysql/entrypoint.sh:/docker-entrypoint-initdb.d/entrypoint.sh
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:5.2.1
+    container_name: cabik_phpmyadmin
+    #restart: always
     ports:
-      - 8081:80
+      - "8081:80"
     environment:
-      PMA_HOST: db
-      PMA_USER: root
-      PMA_PASSWORD: secret
+      PMA_HOST: ${DB_HOST}
+      PMA_USER: ${DB_USERNAME}
+      PMA_PASSWORD: ${DB_PASSWORD}
+    networks:
+      - cabik_network
     depends_on:
-      - db
+      - mysql
 
   laravel:
     build:
       context: .
-      dockerfile: Dockerfile
-    ports:
-      - 8080:80
+      dockerfile: docker/php/Dockerfile
+    container_name: cabik_laravel
+    #restart: always
     expose:
-      - 8000
+      - "9000"
+    env_file:
+    - .env
     volumes:
-      - storage:/storage
+      - ./:/var/www/html
+    networks:
+      - cabik_network
     depends_on:
-      - db
-      - phpmyadmin
+      - mysql
+
+  nginx:
+    image: nginx:1.27
+    container_name: cabik_nginx
+    #restart: always
+    ports:
+      - "8080:80"
+    volumes:
+      - ./:/var/www/html
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      - cabik_network
+    depends_on:
+      - laravel
 
 volumes:
-  dbdata:
-  storage:
+  mysql_volume:
+
+networks:
+  cabik_network:
+    driver: bridge
