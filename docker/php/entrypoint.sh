@@ -10,6 +10,7 @@ chmod -R 777 storage bootstrap/cache
 echo "📦 Instalando dependências do Composer..."
 php artisan package:discover --ansi || true
 
+echo "🧹 Limpando caches antigos..."
 php artisan config:clear
 php artisan cache:clear
 
