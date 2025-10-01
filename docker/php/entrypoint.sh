@@ -7,12 +7,14 @@ echo "🔧 Ajustando permissões..."
 chown -R www-data:www-data storage bootstrap/cache
 chmod -R 777 storage bootstrap/cache
 
-echo "📦 Instalando dependências do Composer..."
-php artisan package:discover --ansi || true
-
 echo "🧹 Limpando caches antigos..."
 php artisan config:clear
 php artisan cache:clear
+php artisan route:clear
+php artisan view:clear
+
+echo "📦 Instalando dependências do Composer..."
+php artisan package:discover --ansi || true
 
 echo "🔑 Gerando APP_KEY..."
 php artisan key:generate --force
