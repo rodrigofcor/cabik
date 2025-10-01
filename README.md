@@ -16,13 +16,10 @@ Cabik é é um site para adoção de animais e ajuda financeira para os tutores.
 
 ### Para executar os containers:
 
+- `cp .env.example .env`
 - `docker compose up -d`
 
-### Se estiver executando pela primeira vez ou caso tenha deletado os volumes siga os seguintes passos:</h3>
-
-- Busque o id do container laravel com `docker ps`
-- Entre no container laravel com `docker exec -it {id_do_container_laravel} bash`
-- Após entrar no container execute `php artisan migrate && php artisan db:seed`
+Obs: Pode ser necessário reiniciar os containers na primeira execução.
 
 ### Acessando o site:
 
